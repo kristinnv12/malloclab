@@ -1,13 +1,9 @@
 /*
  * mm-naive.c - The fastest, least memory-efficient malloc package.
  * 
- * In this naive approach, a block is allocated by simply incrementing
- * the brk pointer.  A block is pure payload. There are no headers or
- * footers.  Blocks are never coalesced or reused. Realloc is
- * implemented directly using mm_malloc and mm_free.
+ * Currently just an unfinished implicit list, we are slowly trying to understand the first-fit code and hopefully from there we can 
+ * start implementing an explicit list solution.
  *
- * NOTE TO STUDENTS: Replace this header comment with your own header
- * comment that gives a high level description of your solution.
  *
  */
 #include <stdio.h>
@@ -20,10 +16,6 @@
 #include "memlib.h"
 
 /*********************************************************
- * NOTE TO STUDENTS: Before you do anything else, please
- * provide your team information in below _AND_ in the
- * struct that follows.
- *
  * === User information ===
  * Group: PlainStupid 
  * User 1: kristinnv12
@@ -32,6 +24,7 @@
  * SSN: 2801872169 
  * === End User Information ===
  ********************************************************/
+
 team_t team = {
     /* Group name */
     "PlainStupid",
@@ -50,6 +43,7 @@ team_t team = {
 };
 
 /* Basic constants and macros (from mm-firstfit.c)*/
+
 #define REQSIZE       8       /* doubleword size (bytes) */
 #define OVERHEAD    8       /* overhead of header and footer (bytes) */
 #define WSIZE       4       /* word size (bytes) */
@@ -85,23 +79,24 @@ team_t team = {
 #define NEXT_BLKP(bp)  ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
 #define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - REQSIZE)))
 
-static char *heap_start;  /* pointer to first block */  
+static char *heap_start;  /* pointer to the start of out heap*/  
 
 static void *scan_for_free(size_t adjsize);
 
 /* 
- * mm_init - initialize the malloc package.
+ * mm_init - should find the start of the heap and reserve some initial space.
  */
 int mm_init(void)
 {
     //TODO: Find the Start of the heap and store it globaly.
     heap_start = 0;
+    //TODO: reserve some initial space for our solution to work with
     return 0;
 }
 
 /* 
- * mm_malloc - Allocate a block by incrementing the brk pointer.
- *     Always allocate a block whose size is a multiple of the alignment.
+ * mm_malloc - find a free block that fits our size so that it is a modulo 0 + overhead of 8 bytes
+ *             if no space is found we increment mem_sbrk pointer for our new memory
  */
 void *mm_malloc(size_t size)
 {
@@ -146,7 +141,7 @@ void *mm_malloc(size_t size)
 }
 
 /*
- * mm_free - Freeing a block does nothing.
+ * mm_free - Freeing a block but does not coalesce the freed space.
  */
 void mm_free(void *williamWallace)
 {
@@ -197,3 +192,5 @@ static void *scan_for_free(size_t reqsize)
     }
     return NULL; /* need more space */
 }
+
+//TODO: Heap consistency cheker
