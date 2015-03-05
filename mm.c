@@ -1,10 +1,30 @@
 /*
- * mm-naive.c - The fastest, least memory-efficient malloc package.
+ * mm.c - Explicit free list solution using LIFO free policy, optimal fit placement (perfect fit search) and boundary tag coalescing.
  * 
- * Currently just an unfinished implicit list, we are slowly trying to understand the first-fit code and hopefully from there we can 
- * start implementing an explicit list solution.
+ * Our solution will be a explicit free list. We will free blocks using the LIFO policy for simplicity, that is a newly freed block will be
+ * added at the begining/root of our free list. For our list we will need 2 extra word per each block for our links, that is the forward
+ * and back pointer since our next free block could be anywhere in the physical memory, that is the list does not lie linear in memory
+ * and therefore it is not sufficient to just store the size of each block as you can do in the implicit list. We will also still
+ * need our boundary tags like in the implicit list solution for the coalescing method. We dont want to call coalesce everytime
+ * we free a block (imideate coalesce) but rather use deffered coalescing, we plan on calling coalesce only as we are scaning
+ * our list for free space. When scanning the list for free blocks we will first try to find a perfect fit for our block,
+ * if the perfect fit does not exist we will try again but lower our expectations and make do with a little bit of
+ * wasted space, we will try to find the perfect balance in time usage and the amount of fragmentation we are
+ * willing to put up with until we get desprate and expand our heap space by incrementing our brk pointer.
+ * We are going to store a pointer to the start of our heap in a global varialble and this variable will 
+ * be reset at initilazation. 
  *
+ *  This is how each free block should be structured:
  *
+ *      |--------------------------------------------------------------------------------|
+ *      | Size boundary tag| Nexr ptr | Prev ptr | Payload & padding | Size bounadry tag |
+ *      |--------------------------------------------------------------------------------|
+ *  
+ *  And this is how the list it self should be structured (pretty much the same idea as in the implicit list solution):
+ *
+ *      |-------------------------------------------------------------------------|
+ *      | Prolog block (header & footer) | The free blocks | Epilog block (header)| 
+ *      |-------------------------------------------------------------------------|
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,6 +108,16 @@ static void *scan_for_free(size_t adjsize);
  */
 int mm_init(void)
 {
+    heap_start = mem_sbrk(2*REQSIZE); //increment the break pointer by two double words
+
+    if(heap_start == NULL)
+    {
+        return -1; //No more space for heap;
+    }
+
+
+
+
     //TODO: Find the Start of the heap and store it globaly.
     heap_start = 0;
     //TODO: reserve some initial space for our solution to work with
