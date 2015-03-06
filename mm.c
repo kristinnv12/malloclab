@@ -144,17 +144,16 @@ int mm_init(void)
  */
 static void *new_free_block(size_t words)
 {
-    /*
     char *mr_clean;   //pointer to the new free/clean block
-    size_t bytes;       //the number of bytes needed for the amount of words
+    size_t bytes;     //the number of bytes needed for the amount of words
 
-    if((words & 2) == 0)          //need to keep alignment as an even number
+    if(words & 2)     //need to keep alignment as an even number
     {
-        bytes = words * WSIZE;  
+        bytes = (words + 1) * WSIZE;
     }
     else
     {
-        bytes = (words + 1) * WSIZE;
+	bytes = words * WSIZE;
     }
 
     mr_clean = mem_sbrk(bytes);  //increment the brk pointer to get more space
@@ -173,20 +172,7 @@ static void *new_free_block(size_t words)
     PUT(HDRP(NEXT_BLKP(mr_clean)), PACK(0, 1));     //changing the epilog header
 
     //TODO: Check if the previous block is free and coalesce
-    return mr_clean;*/
-    char *bp;
-    size_t size;
-    
-    /* Allocate an even number of words to maintain alignment */
-    size = (words % 2) ? (words+1) * WSIZE : words * WSIZE;
-    if ((bp = mem_sbrk(size)) == (void *)-1) 
-    return NULL;
-
-    /* Initialize free block header/footer and the epilogue header */
-    PUT(HDRP(bp), PACK(size, 0));         /* free block header */
-    PUT(FTRP(bp), PACK(size, 0));         /* free block footer */
-    PUT(HDRP(NEXT_BLKP(bp)), PACK(0, 1)); /* new epilogue header */
-    return bp;
+    return mr_clean;
 
 }
 /* 
