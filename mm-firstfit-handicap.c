@@ -46,6 +46,7 @@ team_t team = {
 /* Basic constants and macros */
 #define WSIZE       4       /* word size (bytes) */  
 #define DSIZE       8       /* doubleword size (bytes) */
+#define REQSIZE     8
 #define CHUNKSIZE  (1<<12)  /* initial heap size (bytes) */
 #define OVERHEAD    8       /* overhead of header and footer (bytes) */
 
@@ -97,18 +98,44 @@ static void checkblock(void *bp);
 /* $begin mminit */
 int mm_init(void) 
 {
-    /* create the initial empty heap */
+    /*
+    // create the initial empty heap
     if ((heap_listp = mem_sbrk(4*WSIZE)) == NULL)
 	return -1;
-    PUT(heap_listp, 0);                        /* alignment padding */
-    PUT(heap_listp+WSIZE, PACK(OVERHEAD, 1));  /* prologue header */ 
-    PUT(heap_listp+DSIZE, PACK(OVERHEAD, 1));  /* prologue footer */ 
-    PUT(heap_listp+WSIZE+DSIZE, PACK(0, 1));   /* epilogue header */
+    PUT(heap_listp, 0);                        //alignment padding
+    PUT(heap_listp+WSIZE, PACK(OVERHEAD, 1));  //prologue header 
+    PUT(heap_listp+DSIZE, PACK(OVERHEAD, 1));  //prologue footer 
+    PUT(heap_listp+WSIZE+DSIZE, PACK(0, 1));   //epilogue header
     heap_listp += DSIZE;
 
-    /* Extend the empty heap with a free block of CHUNKSIZE bytes */
+    //Extend the empty heap with a free block of CHUNKSIZE bytes
     if (extend_heap(CHUNKSIZE/WSIZE) == NULL)
 	return -1;
+    return 0;
+    */
+
+    heap_listp = mem_sbrk(4*WSIZE); //increment the break pointer by two double words
+
+    if(heap_listp == NULL)
+    {
+        return -1; //No more space for heap;
+    }
+                                                        //                                  -----------
+    PUT(heap_listp, 0);                                 //padding                           | padding |
+                                                        //                                  |---------|
+    PUT(heap_listp + WSIZE, PACK(OVERHEAD, 1));         //prolog header                     |   PH    |
+                                                        //                                  |---------|
+    PUT(heap_listp + REQSIZE, PACK(OVERHEAD, 1));       //prolog footer                     |   PF    |
+                                                        //                                  |---------|
+    PUT(heap_listp + REQSIZE + WSIZE, PACK(0, 1));      //epilog header                     |   EH    |
+                                                        //                                  -----------
+    heap_listp += REQSIZE;
+
+    if(new_free_block(CHUNKSIZE/WSIZE) == NULL )    //initilize some starting free space
+    {
+        return -1;
+    }
+
     return 0;
 }
 /* $end mminit */
