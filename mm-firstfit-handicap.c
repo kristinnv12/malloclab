@@ -131,33 +131,6 @@ int mm_init(void)
 /* $begin mmmalloc */
 void *mm_malloc(size_t size) 
 {
-    /*
-    size_t asize;      //adjusted block size
-    size_t extendsize; //amount to extend heap if no fit
-    char *bp;      
-
-    //Ignore spurious requests
-    if (size <= 0)
-	return NULL;
-
-    //Adjust block size to include overhead and alignment reqs.
-    if (size <= DSIZE)
-	asize = DSIZE + OVERHEAD;
-    else
-	asize = DSIZE * ((size + (OVERHEAD) + (DSIZE-1)) / DSIZE);
-    
-    //Search the free list for a fit
-    if ((bp = find_fit(asize)) != NULL) {
-	place(bp, asize);
-	return bp;
-    }
-
-    //No fit found. Get more memory and place the block
-    extendsize = MAX(asize,CHUNKSIZE);
-    if ((bp = extend_heap(extendsize/WSIZE)) == NULL)
-	return NULL;
-    place(bp, asize);
-    return bp;*/
     size_t adjsize;
     char *allocspacePtr;
     size_t extend_size;
@@ -245,21 +218,52 @@ void *mm_realloc(void *ptr, size_t size)
 /* $begin mmextendheap */
 static void *extend_heap(size_t words) 
 {
+    /*
     char *bp;
     size_t size;
 	
-    /* Allocate an even number of words to maintain alignment */
+    //Allocate an even number of words to maintain alignment
     size = (words % 2) ? (words+1) * WSIZE : words * WSIZE;
     if ((bp = mem_sbrk(size)) == (void *)-1) 
 	return NULL;
 
-    /* Initialize free block header/footer and the epilogue header */
-    PUT(HDRP(bp), PACK(size, 0));         /* free block header */
-    PUT(FTRP(bp), PACK(size, 0));         /* free block footer */
-    PUT(HDRP(NEXT_BLKP(bp)), PACK(0, 1)); /* new epilogue header */
+    //Initialize free block header/footer and the epilogue header
+    PUT(HDRP(bp), PACK(size, 0));         /* free block header
+    PUT(FTRP(bp), PACK(size, 0));         /* free block footer
+    PUT(HDRP(NEXT_BLKP(bp)), PACK(0, 1)); /* new epilogue header
 
-    /* Coalesce if the previous block was free */
-    return bp;
+    //Coalesce if the previous block was free
+    return bp;*/
+
+    char *mr_clean;   //pointer to the new free/clean block
+    size_t bytes;     //the number of bytes needed for the amount of words
+
+    if(words & 2)     //need to keep alignment as an even number
+    {
+        bytes = (words + 1) * WSIZE;
+    }
+    else
+    {
+    bytes = words * WSIZE;
+    }
+
+    mr_clean = mem_sbrk(bytes);  //increment the brk pointer to get more space
+
+    if(mr_clean == (void *)-1)
+    {
+        return NULL;    //something went terribly wrong
+    }
+
+    PUT(HDRP(mr_clean), PACK(bytes, 0));   //adding header size boundary tag
+    PUT(FTRP(mr_clean), PACK(bytes, 0));   //adding footer sixe boundary tag
+
+    //TODO: add the next and prev pointers to the block
+
+    //TODO: Can we assume that the epilog header is the next block when we are working with an explicit list ?!?!?!
+    PUT(HDRP(NEXT_BLKP(mr_clean)), PACK(0, 1));     //changing the epilog header
+
+    //TODO: Check if the previous block is free and coalesce
+    return mr_clean;
 }
 /* $end mmextendheap */
 
