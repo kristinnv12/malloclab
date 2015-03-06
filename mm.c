@@ -244,8 +244,9 @@ void *mm_malloc(size_t size)
 /*
  * place - place block of size adjSize at the start of pointer allocPtr
  */
-static void place(void *alloc_ptr, size_t size_needed)
+static void place(void *bp, size_t asize)
 {
+    /*
     size_t block_size = GET_SIZE(HDRP(alloc_ptr));      //fetch the size of the block given to us
 
     size_t block_remainder = block_size - size_needed;
@@ -259,14 +260,29 @@ static void place(void *alloc_ptr, size_t size_needed)
         PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));     //We have space for a new free block, split the block up
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
         //TODO: Add next and prev pointers
+    }*/
+
+    size_t csize = GET_SIZE(HDRP(bp));   
+
+    if ((csize - asize) >= (DSIZE + OVERHEAD)) { 
+    PUT(HDRP(bp), PACK(asize, 1));
+    PUT(FTRP(bp), PACK(asize, 1));
+    bp = NEXT_BLKP(bp);
+    PUT(HDRP(bp), PACK(csize-asize, 0));
+    PUT(FTRP(bp), PACK(csize-asize, 0));
+    }
+    else { 
+    PUT(HDRP(bp), PACK(csize, 1));
+    PUT(FTRP(bp), PACK(csize, 1));
     }
 }
 
 /*
  * mm_free - Freeing a block but does not coalesce the freed space.
  */
-void mm_free(void *williamWallace)
+void mm_free(void *bp)
 {
+    /*
     size_t ptrSize = GET_SIZE(HDRP(williamWallace));
 
     //Free the header and footer of given pointer
@@ -274,7 +290,12 @@ void mm_free(void *williamWallace)
     PUT(FTRP(williamWallace), PACK(ptrSize, 0));
     //FREEDOM!!!
 
-    //TODO: need to check if the freed space can be joined with the next or previous block
+    //TODO: need to check if the freed space can be joined with the next or previous block*/
+
+    size_t size = GET_SIZE(HDRP(bp));
+
+    PUT(HDRP(bp), PACK(size, 0));
+    PUT(FTRP(bp), PACK(size, 0));
 }
 
 /*
