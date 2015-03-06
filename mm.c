@@ -201,7 +201,7 @@ void *mm_malloc(size_t size)
     if(allocspacePtr != NULL){
 
         //found free space that fits the adjusted size
-        place(allocspacePtr);
+        place(allocspacePtr, adjsize);
         return allocspacePtr;
     }
 
