@@ -102,6 +102,8 @@ team_t team = {
 static char *heap_start;  /* pointer to the start of out heap*/  
 
 static void *scan_for_free(size_t adjsize);
+static void *new_free_block(size_t words);
+static void place(void *alloc_ptr, size_t size_needed);
 
 /* 
  * mm_init - should find the start of the heap and reserve some initial space.
@@ -114,15 +116,15 @@ int mm_init(void)
     {
         return -1; //No more space for heap;
     }
-                                                                                            -----------
+                                                        //                                  -----------
     PUT(heap_start, 0);                                 //padding                           | padding |
-                                                                                            |---------|
+                                                        //                                  |---------|
     PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));         //prolog header                     |   PH    |
-                                                                                            |---------|
+                                                        //                                  |---------|
     PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));       //prolog footer                     |   PF    |
-                                                                                            |---------|
+                                                        //                                  |---------|
     PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));      //epilog header                     |   EH    |
-                                                                                            -----------
+                                                        //                                  -----------
 
     if(new_free_block(CHUNKSIZE/WSIZE) == NULL )    //initilize some starting free space
     {
@@ -142,7 +144,7 @@ static void *new_free_block(size_t words)
     char *mr_clean;   //pointer to the new free/clean block
     size_t bytes;       //the number of bytes needed for the amount of words
 
-    if(words & 2 == 0)          //need to keep alignment as an even number
+    if((words & 2) == 0)          //need to keep alignment as an even number
     {
         bytes = words * WSIZE;  
     }
@@ -151,15 +153,15 @@ static void *new_free_block(size_t words)
         bytes = (words + 1) * WSIZE;
     }
 
-    mr_clean = mem_sbrk(bytes)  //increment the brk pointer to get more space
+    mr_clean = mem_sbrk(bytes);  //increment the brk pointer to get more space
 
     if(mr_clean == (void *)-1)
     {
         return NULL;    //something went terribly wrong
     }
 
-    PUT(HDRP(mr_clean), PACK(size, 0));   //adding header size boundary tag
-    PUT(FTRP(mr_clean), PACK(size, 0));   //adding footer sixe boundary tag
+    PUT(HDRP(mr_clean), PACK(bytes, 0));   //adding header size boundary tag
+    PUT(FTRP(mr_clean), PACK(bytes, 0));   //adding footer sixe boundary tag
 
     //TODO: add the next and prev pointers to the block
 
@@ -179,6 +181,7 @@ void *mm_malloc(size_t size)
 
     size_t adjsize;
     char *allocspacePtr;
+    size_t extend_size;
 
     //base case: 0
     if(size <= 0)
@@ -198,7 +201,7 @@ void *mm_malloc(size_t size)
     if(allocspacePtr != NULL){
 
         //found free space that fits the adjusted size
-        place(allocspacePtr)
+        place(allocspacePtr);
         return allocspacePtr;
     }
 
@@ -207,7 +210,7 @@ void *mm_malloc(size_t size)
 
     allocspacePtr = new_free_block(extend_size/WSIZE);
 
-    if(alloc_ptr == NULL)
+    if(allocspacePtr == NULL)
     {
         return NULL;
     }
@@ -225,8 +228,8 @@ static void place(void *alloc_ptr, size_t size_needed)
 
     size_t block_remainder = block_size - size_needed;
 
-    PUT(HDRP(alloc_ptr), PACK(adjsize, 1));
-    PUT(FTRP(alloc_ptr), PACK(adjsize, 1));
+    PUT(HDRP(alloc_ptr), PACK(size_needed, 1));
+    PUT(FTRP(alloc_ptr), PACK(size_needed, 1));
 
     if(block_remainder >= (REQSIZE + OVERHEAD))
     {
