@@ -273,18 +273,22 @@ void mm_free(void *williamWallace)
 void *mm_realloc(void *ptr, size_t size)
 {
     //TODO: Check if it is possible to extend the current memory adress rather than just reserving more space
-    void *oldptr = ptr;
     void *newptr;
     size_t copySize;
     
     newptr = mm_malloc(size);
+    
     if (newptr == NULL)
-	return NULL;
-    copySize = *(size_t *)((char *)oldptr - SIZE_T_SIZE);
+    {
+        printf("ERROR: mm_realloc\n");
+        exit(1);
+    }
+
+    copySize = GET_SIZE(HDRP(ptr));
     if (size < copySize)
 	copySize = size;
-    memcpy(newptr, oldptr, copySize);
-    mm_free(oldptr);
+    memcpy(newptr, ptr, copySize);
+    mm_free(ptr);
     return newptr;
 }
 
