@@ -64,7 +64,9 @@ team_t team = {
 
 /* Basic constants and macros (from mm-firstfit.c)*/
 
-#define REQSIZE       8       /* doubleword size (bytes) */
+#define REQSIZE     8       /* doubleword size (bytes) */
+#define DSIZE     8 
+//TODO change over head to include next and prev pointers
 #define OVERHEAD    8       /* overhead of header and footer (bytes) */
 #define WSIZE       4       /* word size (bytes) */
 #define CHUNKSIZE  (1<<12)  /* initial heap size (bytes) */
@@ -109,8 +111,8 @@ static void place(void *alloc_ptr, size_t size_needed);
  * mm_init - should find the start of the heap and reserve some initial space.
  */
 int mm_init(void)
-{
-    heap_start = mem_sbrk(2*REQSIZE); //increment the break pointer by two double words
+{   /*
+    heap_start = mem_sbrk(4*WSIZE); //increment the break pointer by two double words
 
     if(heap_start == NULL)
     {
@@ -131,6 +133,20 @@ int mm_init(void)
         return -1;
     }
 
+    return 0;
+    */
+
+    if ((heap_listp = mem_sbrk(4*WSIZE)) == NULL)
+    return -1;
+    PUT(heap_listp, 0);                        /* alignment padding */
+    PUT(heap_listp+WSIZE, PACK(OVERHEAD, 1));  /* prologue header */ 
+    PUT(heap_listp+DSIZE, PACK(OVERHEAD, 1));  /* prologue footer */ 
+    PUT(heap_listp+WSIZE+DSIZE, PACK(0, 1));   /* epilogue header */
+    heap_listp += DSIZE;
+
+    /* Extend the empty heap with a free block of CHUNKSIZE bytes */
+    if (extend_heap(CHUNKSIZE/WSIZE) == NULL)
+    return -1;
     return 0;
 }
 
