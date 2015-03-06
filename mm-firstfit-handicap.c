@@ -98,21 +98,6 @@ static void checkblock(void *bp);
 /* $begin mminit */
 int mm_init(void) 
 {
-    /*
-    // create the initial empty heap
-    if ((heap_listp = mem_sbrk(4*WSIZE)) == NULL)
-	return -1;
-    PUT(heap_listp, 0);                        //alignment padding
-    PUT(heap_listp+WSIZE, PACK(OVERHEAD, 1));  //prologue header 
-    PUT(heap_listp+DSIZE, PACK(OVERHEAD, 1));  //prologue footer 
-    PUT(heap_listp+WSIZE+DSIZE, PACK(0, 1));   //epilogue header
-    heap_listp += DSIZE;
-
-    //Extend the empty heap with a free block of CHUNKSIZE bytes
-    if (extend_heap(CHUNKSIZE/WSIZE) == NULL)
-	return -1;
-    return 0;
-    */
 
     heap_listp = mem_sbrk(4*WSIZE); //increment the break pointer by two double words
 
@@ -131,7 +116,7 @@ int mm_init(void)
                                                         //                                  -----------
     heap_listp += REQSIZE;
 
-    if(new_free_block(CHUNKSIZE/WSIZE) == NULL )    //initilize some starting free space
+    if(extend_heap(CHUNKSIZE/WSIZE) == NULL )    //initilize some starting free space
     {
         return -1;
     }
@@ -146,32 +131,75 @@ int mm_init(void)
 /* $begin mmmalloc */
 void *mm_malloc(size_t size) 
 {
-    size_t asize;      /* adjusted block size */
-    size_t extendsize; /* amount to extend heap if no fit */
+    /*
+    size_t asize;      //adjusted block size
+    size_t extendsize; //amount to extend heap if no fit
     char *bp;      
 
-    /* Ignore spurious requests */
+    //Ignore spurious requests
     if (size <= 0)
 	return NULL;
 
-    /* Adjust block size to include overhead and alignment reqs. */
+    //Adjust block size to include overhead and alignment reqs.
     if (size <= DSIZE)
 	asize = DSIZE + OVERHEAD;
     else
 	asize = DSIZE * ((size + (OVERHEAD) + (DSIZE-1)) / DSIZE);
     
-    /* Search the free list for a fit */
+    //Search the free list for a fit
     if ((bp = find_fit(asize)) != NULL) {
 	place(bp, asize);
 	return bp;
     }
 
-    /* No fit found. Get more memory and place the block */
+    //No fit found. Get more memory and place the block
     extendsize = MAX(asize,CHUNKSIZE);
     if ((bp = extend_heap(extendsize/WSIZE)) == NULL)
 	return NULL;
     place(bp, asize);
-    return bp;
+    return bp;*/
+    size_t adjsize;
+    char *allocspacePtr;
+    size_t extend_size;
+
+    //base case: 0
+    if(size <= 0)
+    {
+        return NULL;
+    }
+
+    //Must make our size a modulo 0 + overhead of 8 bytes
+    if (size <= REQSIZE)
+    {
+        adjsize = REQSIZE + OVERHEAD;
+    }
+    else
+    {
+        adjsize = REQSIZE * ((size + (OVERHEAD) + (REQSIZE-1)) / REQSIZE);
+    }
+    
+    //scan for free space
+    allocspacePtr = scan_for_free(adjsize);
+
+    if(allocspacePtr != NULL){
+
+        //found free space that fits the adjusted size
+        place(allocspacePtr, adjsize);
+        return allocspacePtr;
+    }
+
+    extend_size = MAX(adjsize, CHUNKSIZE);
+    //we just allocate more space
+
+    allocspacePtr = new_free_block(extend_size/WSIZE);
+
+    if(allocspacePtr == NULL)
+    {
+        return NULL;
+    }
+
+    place(allocspacePtr, adjsize);
+    return allocspacePtr;
 } 
 /* $end mmmalloc */
 
