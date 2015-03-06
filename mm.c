@@ -114,16 +114,62 @@ int mm_init(void)
     {
         return -1; //No more space for heap;
     }
+                                                                                            -----------
+    PUT(heap_start, 0);                                 //padding                           | padding |
+                                                                                            |---------|
+    PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));         //prolog header                     |   PH    |
+                                                                                            |---------|
+    PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));       //prolog footer                     |   PF    |
+                                                                                            |---------|
+    PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));      //epilog header                     |   EH    |
+                                                                                            -----------
 
+    if(new_free_block(CHUNKSIZE/WSIZE) == NULL )    //initilize some starting free space
+    {
+        return -1;
+    }
 
-
-
-    //TODO: Find the Start of the heap and store it globaly.
-    heap_start = 0;
-    //TODO: reserve some initial space for our solution to work with
     return 0;
 }
 
+/*
+ * new_free_block - gets amount of words as input, increments brk pointer by needed bytes for requested word(s).
+ *                  constructs the new free block with size tags, next and prev pointers and adjusts the epilog
+                    footer.
+ */
+void *new_free_block(size_t words)
+{
+    char *mr_clean;   //pointer to the new free/clean block
+    size_t bytes;       //the number of bytes needed for the amount of words
+
+    if(words & 2 == 0)          //need to keep alignment as an even number
+    {
+        bytes = words * WSIZE;  
+    }
+    else
+    {
+        bytes = (words + 1) * WSIZE;
+    }
+
+    mr_clean = mem_sbrk(bytes)  //increment the brk pointer to get more space
+
+    if(mr_clean == (void *)-1)
+    {
+        return NULL;    //something went terribly wrong
+    }
+
+    PUT(HDRP(mr_clean), PACK(size, 0));   //adding header size boundary tag
+    PUT(FTRP(mr_clean), PACK(size, 0));   //adding footer sixe boundary tag
+
+    //TODO: add the next and prev pointers to the block
+
+    //TODO: Can we assume that the epilog header is the next block when we are working with an explicit list ?!?!?!
+    PUT(HDRP(NEXT_BLKP(mr_clean)), PACK(0, 1));     //changing the epilog header
+
+    //TODO: Check if the previous block is free and coalesce
+    return mr_clean;
+
+}
 /* 
  * mm_malloc - find a free block that fits our size so that it is a modulo 0 + overhead of 8 bytes
  *             if no space is found we increment mem_sbrk pointer for our new memory
