@@ -137,7 +137,7 @@ int mm_init(void)
  *                  constructs the new free block with size tags, next and prev pointers and adjusts the epilog
                     footer.
  */
-void *new_free_block(size_t words)
+static void *new_free_block(size_t words)
 {
     char *mr_clean;   //pointer to the new free/clean block
     size_t bytes;       //the number of bytes needed for the amount of words
@@ -178,10 +178,10 @@ void *mm_malloc(size_t size)
 {
 
     size_t adjsize;
-    char *alocspacePtr;
+    char *allocspacePtr;
 
     //base case: 0
-    if(size <=0)
+    if(size <= 0)
     {
         return NULL;
     }
@@ -193,26 +193,47 @@ void *mm_malloc(size_t size)
     adjsize = REQSIZE * ((size + (OVERHEAD) + (REQSIZE-1)) / REQSIZE);
     
     //scan for free space
-    alocspacePtr = scan_for_free(adjsize);
+    allocspacePtr = scan_for_free(adjsize);
 
-    if(alocspacePtr != NULL){
+    if(allocspacePtr != NULL){
 
         //found free space that fits the adjusted size
-        //TODO: understand place function and impliment
-        return alocspacePtr;
+        place(allocspacePtr)
+        return allocspacePtr;
     }
-    else
+
+    extend_size = MAX(adjsize, CHUNKSIZE);
+    //we just allocate more space
+
+    allocspacePtr = new_free_block(extend_size/WSIZE);
+
+    if(alloc_ptr == NULL)
     {
-        //we just allocate more space
-        //TODO: Find a more optimal way of finding how much space we need to reserve
-        int newsize = ALIGN(size + SIZE_T_SIZE);
-        void *p = mem_sbrk(newsize);
-        if (p == (void *)-1)
-    	return NULL;
-        else {
-            *(size_t *)p = size;
-            return (void *)((char *)p + SIZE_T_SIZE);
-        }
+        return NULL;
+    }
+
+    place(allocspacePtr, adjsize);
+    return allocspacePtr;
+}
+
+/*
+ * place - place block of size adjSize at the start of pointer allocPtr
+ */
+static void place(void *alloc_ptr, size_t size_needed)
+{
+    size_t block_size = GET_SIZE(HDRP(alloc_ptr));      //fetch the size of the block given to us
+
+    size_t block_remainder = block_size - size_needed;
+
+    PUT(HDRP(alloc_ptr), PACK(adjsize, 1));
+    PUT(FTRP(alloc_ptr), PACK(adjsize, 1));
+
+    if(block_remainder >= (REQSIZE + OVERHEAD))
+    {
+        alloc_ptr = NEXT_BLKP(alloc_ptr);
+        PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));     //We have space for a new free block, split the block up
+        PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
+        //TODO: Add next and prev pointers
     }
 }
 
