@@ -64,11 +64,11 @@ team_t team = {
 
 /* Given block ptr bp, compute address of its header and footer */
 #define HDRP(bp)       ((char *)(bp) - WSIZE)  
-#define FTRP(bp)       ((char *)(bp) + GET_SIZE(HDRP(bp)) - REQSIZE)
+#define FTRP(bp)       ((char *)(bp) + GET_SIZE(HDRP(bp)) - DSIZE)
 
 /* Given block ptr bp, compute address of next and previous blocks */
 #define NEXT_BLKP(bp)  ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
-#define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - REQSIZE)))
+#define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - DSIZE)))
 /* $end mallocmacros */
 
 /* Global variables */
@@ -143,13 +143,12 @@ void *mm_malloc(size_t size)
  * mm_free - Free a block 
  */
 /* $begin mmfree */
-void mm_free(void *bp)  
+void mm_free(void *bp)
 {
     size_t size = GET_SIZE(HDRP(bp));
 
     PUT(HDRP(bp), PACK(size, 0));
     PUT(FTRP(bp), PACK(size, 0));
-    coalesce(bp);
 }
 
 /* $end mmfree */
@@ -159,45 +158,19 @@ void mm_free(void *bp)
  */
 void *mm_realloc(void *ptr, size_t size)
 {
-    void *newp;
+    void *oldptr = ptr;
+    void *newptr;
     size_t copySize;
-
-    if ((newp = mm_malloc(size)) == NULL) {
-	printf("ERROR: mm_malloc failed in mm_realloc\n");
-	exit(1);
-    }
-    copySize = GET_SIZE(HDRP(ptr));
+    
+    newptr = mm_malloc(size);
+    if (newptr == NULL)
+    return NULL;
+    copySize = *(size_t *)((char *)oldptr - SIZE_T_SIZE);
     if (size < copySize)
-      copySize = size;
-    memcpy(newp, ptr, copySize);
-    mm_free(ptr);
-    return newp;
-}
-
-/* 
- * mm_checkheap - Check the heap for consistency 
- */
-void mm_checkheap(int verbose) 
-{
-    char *bp = heap_listp;
-
-    if (verbose)
-	printf("Heap (%p):\n", heap_listp);
-
-    if ((GET_SIZE(HDRP(heap_listp)) != DSIZE) || !GET_ALLOC(HDRP(heap_listp)))
-	printf("Bad prologue header\n");
-    checkblock(heap_listp);
-
-    for (bp = heap_listp; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp)) {
-	if (verbose) 
-	    printblock(bp);
-	checkblock(bp);
-    }
-     
-    if (verbose)
-	printblock(bp);
-    if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
-	printf("Bad epilogue header\n");
+    copySize = size;
+    memcpy(newptr, oldptr, copySize);
+    mm_free(oldptr);
+    return newptr;
 }
 
 /* The remaining routines are internal helper routines */
@@ -222,7 +195,7 @@ static void *extend_heap(size_t words)
     PUT(HDRP(NEXT_BLKP(bp)), PACK(0, 1)); /* new epilogue header */
 
     /* Coalesce if the previous block was free */
-    return coalesce(bp);
+    return bp;
 }
 /* $end mmextendheap */
 
@@ -266,69 +239,3 @@ static void *find_fit(size_t asize)
     }
     return NULL; /* no fit */
 }
-
-/*
- * coalesce - boundary tag coalescing. Return ptr to coalesced block
- */                 
-static void *coalesce(void *bp) 
-{
-    size_t prev_alloc = GET_ALLOC(FTRP(PREV_BLKP(bp)));
-    size_t next_alloc = GET_ALLOC(HDRP(NEXT_BLKP(bp)));
-    size_t size = GET_SIZE(HDRP(bp));
-
-    if (prev_alloc && next_alloc) {            /* Case 1 */
-	return bp;
-    }
-
-    else if (prev_alloc && !next_alloc) {      /* Case 2 */
-	size += GET_SIZE(HDRP(NEXT_BLKP(bp)));
-	PUT(HDRP(bp), PACK(size, 0));
-	PUT(FTRP(bp), PACK(size,0));
-    }
-
-    else if (!prev_alloc && next_alloc) {      /* Case 3 */
-	size += GET_SIZE(HDRP(PREV_BLKP(bp)));
-	PUT(FTRP(bp), PACK(size, 0));
-	PUT(HDRP(PREV_BLKP(bp)), PACK(size, 0));
-	bp = PREV_BLKP(bp);
-    }
-
-    else {                                     /* Case 4 */
-	size += GET_SIZE(HDRP(PREV_BLKP(bp))) + 
-	    GET_SIZE(FTRP(NEXT_BLKP(bp)));
-	PUT(HDRP(PREV_BLKP(bp)), PACK(size, 0));
-	PUT(FTRP(NEXT_BLKP(bp)), PACK(size, 0));
-	bp = PREV_BLKP(bp);
-    }
-
-    return bp;
-}
-
-
-static void printblock(void *bp) 
-{
-    size_t hsize, halloc, fsize, falloc;
-
-    hsize = GET_SIZE(HDRP(bp));
-    halloc = GET_ALLOC(HDRP(bp));  
-    fsize = GET_SIZE(FTRP(bp));
-    falloc = GET_ALLOC(FTRP(bp));  
-    
-    if (hsize == 0) {
-	printf("%p: EOL\n", bp);
-	return;
-    }
-
-    printf("%p: header: [%d:%c] footer: [%d:%c]\n", bp, 
-	   hsize, (halloc ? 'a' : 'f'), 
-	   fsize, (falloc ? 'a' : 'f')); 
-}
-
-static void checkblock(void *bp) 
-{
-    if ((size_t)bp % 8)
-	printf("Error: %p is not doubleword aligned\n", bp);
-    if (GET(HDRP(bp)) != GET(FTRP(bp)))
-	printf("Error: header does not match footer\n");
-}
-
