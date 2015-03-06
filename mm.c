@@ -228,9 +228,8 @@ void *mm_malloc(size_t size)
 /*
  * place - place block of size adjSize at the start of pointer allocPtr
  */
-static void place(void *bp, size_t asize)
+static void place(void *alloc_ptr, size_t size_needed)
 {
-    /*
     size_t block_size = GET_SIZE(HDRP(alloc_ptr));      //fetch the size of the block given to us
 
     size_t block_remainder = block_size - size_needed;
@@ -244,21 +243,6 @@ static void place(void *bp, size_t asize)
         PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));     //We have space for a new free block, split the block up
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
         //TODO: Add next and prev pointers
-    }
-    */
-
-    size_t csize = GET_SIZE(HDRP(bp));   
-
-    if ((csize - asize) >= (DSIZE + OVERHEAD)) { 
-    PUT(HDRP(bp), PACK(asize, 1));
-    PUT(FTRP(bp), PACK(asize, 1));
-    bp = NEXT_BLKP(bp);
-    PUT(HDRP(bp), PACK(csize-asize, 0));
-    PUT(FTRP(bp), PACK(csize-asize, 0));
-    }
-    else { 
-    PUT(HDRP(bp), PACK(csize, 1));
-    PUT(FTRP(bp), PACK(csize, 1));
     }
 }
 
@@ -301,8 +285,9 @@ void *mm_realloc(void *ptr, size_t size)
 /*
 * scan_for_free - Scans the heap for the requierd size.
 */
-static void *scan_for_free(size_t reqsize)
+static void *scan_for_free(size_t asize)
 {
+    /*
     void *curr;
 
     //Start on the head of the heap and run down it
@@ -312,7 +297,18 @@ static void *scan_for_free(size_t reqsize)
             return curr;
         }
     }
-    return NULL; /* need more space */
+    return NULL; // need more space
+
+    */
+    /* first fit search */
+    void *bp;
+
+    for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp)) {
+    if (!GET_ALLOC(HDRP(bp)) && (asize <= GET_SIZE(HDRP(bp)))) {
+        return bp;
+    }
+    }
+    return NULL; /* no fit */
 }
 
 //TODO: Heap consistency cheker
