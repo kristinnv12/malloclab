@@ -291,7 +291,7 @@ void *mm_realloc(void *ptr, size_t size)
 /*
 * scan_for_free - Scans the heap for the requierd size.
 */
-static void *scan_for_free(size_t asize)
+static void *scan_for_free(size_t reqsize)
 {
     void *curr;
 
