@@ -280,9 +280,8 @@ static void place(void *bp, size_t asize)
 /*
  * mm_free - Freeing a block but does not coalesce the freed space.
  */
-void mm_free(void *bp)
+void mm_free(void *williamWallace)
 {
-    /*
     size_t ptrSize = GET_SIZE(HDRP(williamWallace));
 
     //Free the header and footer of given pointer
@@ -290,12 +289,7 @@ void mm_free(void *bp)
     PUT(FTRP(williamWallace), PACK(ptrSize, 0));
     //FREEDOM!!!
 
-    //TODO: need to check if the freed space can be joined with the next or previous block*/
-
-    size_t size = GET_SIZE(HDRP(bp));
-
-    PUT(HDRP(bp), PACK(size, 0));
-    PUT(FTRP(bp), PACK(size, 0));
+    //TODO: need to check if the freed space can be joined with the next or previous block
 }
 
 /*
@@ -324,7 +318,6 @@ void *mm_realloc(void *ptr, size_t size)
 */
 static void *scan_for_free(size_t asize)
 {
-    /*
     void *curr;
 
     //Start on the head of the heap and run down it
@@ -335,17 +328,6 @@ static void *scan_for_free(size_t asize)
         }
     }
     return NULL; // need more space
-
-    */
-    /* first fit search */
-    void *bp;
-
-    for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp)) {
-    if (!GET_ALLOC(HDRP(bp)) && (asize <= GET_SIZE(HDRP(bp)))) {
-        return bp;
-    }
-    }
-    return NULL; /* no fit */
 }
 
 //TODO: Heap consistency cheker
