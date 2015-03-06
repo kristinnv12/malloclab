@@ -152,7 +152,7 @@ void *mm_malloc(size_t size)
     }
     
     //scan for free space
-    allocspacePtr = scan_for_free(adjsize);
+    allocspacePtr = find_fit(adjsize);
 
     if(allocspacePtr != NULL){
 
@@ -164,7 +164,7 @@ void *mm_malloc(size_t size)
     extend_size = MAX(adjsize, CHUNKSIZE);
     //we just allocate more space
 
-    allocspacePtr = new_free_block(extend_size/WSIZE);
+    allocspacePtr = extend_size(extend_size/WSIZE);
 
     if(allocspacePtr == NULL)
     {
