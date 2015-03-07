@@ -101,7 +101,7 @@ team_t team = {
 #define NEXT_BLKP(bp)  ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
 #define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - REQSIZE)))
 
-static char *heap_start;  /* pointer to the start of out heap*/  
+static char *heap_start;  /* pointer to the start of out heap*/ 
 
 static void *scan_for_free(size_t adjsize);
 static void *new_free_block(size_t words);
@@ -295,7 +295,7 @@ void *mm_realloc(void *ptr, size_t size)
 /*
  * coalecse -check the two neighboring blocks for alocation, if possible we will merge these blocks together
  */
-static void *coalecse(void middle*){
+static void *coalesce(void *middle){
 
     size_t left = GET_ALLOC(FTRP(PREV_BLKP(middle)));
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
