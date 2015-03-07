@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./mdriver -t ./traces/
+./mdriver -V -t ./traces/
