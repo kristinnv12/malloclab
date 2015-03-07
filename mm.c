@@ -106,6 +106,7 @@ static char *heap_start;  /* pointer to the start of out heap*/
 static void *scan_for_free(size_t adjsize);
 static void *new_free_block(size_t words);
 static void place(void *alloc_ptr, size_t size_needed);
+static void *coalesce(void *middle);
 
 /* 
  * mm_init - should find the start of the heap and reserve some initial space.
@@ -173,7 +174,7 @@ static void *new_free_block(size_t words)
     PUT(HDRP(NEXT_BLKP(mr_clean)), PACK(0, 1));     //changing the epilog header
 
     //TODO: Check if the previous block is free and coalesce
-    return mr_clean;
+    return coalesce(mr_clean);
 
 }
 /* 
@@ -263,8 +264,7 @@ void mm_free(void *williamWallace)
     PUT(HDRP(williamWallace), PACK(ptrSize, 0));
     PUT(FTRP(williamWallace), PACK(ptrSize, 0));
     //FREEDOM!!!
-
-    //TODO: need to check if the freed space can be joined with the next or previous block
+    coalesce(williamWallace);
 }
 
 /*
@@ -292,6 +292,42 @@ void *mm_realloc(void *ptr, size_t size)
     return newptr;
 }
 
+/*
+ * coalecse -check the two neighboring blocks for alocation, if possible we will merge these blocks together
+ */
+static void *coalecse(void middle*){
+
+    size_t left = GET_ALLOC(FTRP(PREV_BLKP(middle)));
+    size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
+    size_t size = GET_SIZE(HDRP(middle));
+
+    if(left && right)       //no free block to merge
+    {
+        return middle;      
+    }
+    else if(left && !right) //right neigbor is a free block
+    {
+        size += GET_SIZE(HDRP(NEXT_BLKP(middle)));
+        PUT(HDRP(middle), PACK(size, 0));
+        PUT(FTRP(middle), PACK(size, 0));
+    }
+    else if(!left && right) //left neigbor is a free block
+    {
+        size += GET_SIZE(HDRP(PREV_BLKP(middle)));
+        PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
+        PUT(FTRP(middle), PACK(size, 0));
+        middle = PREV_BLKP(middle);
+    }
+    else if(!left && !right)    //both neigbors are free blocks
+    {
+        size += GET_SIZE(HDRP(PREV_BLKP(middle))) + GET_SIZE(FTRP(NEXT_BLKP(middle)));
+        PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
+        PUT(FTRP(NEXT_BLKP(middle)), PACK(size, 0));
+        middle = PREV_BLKP(middle);
+    }
+    
+    return middle;
+}
 /*
 * scan_for_free - Scans the heap for the requierd size.
 */
