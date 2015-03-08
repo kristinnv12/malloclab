@@ -284,6 +284,12 @@ void *mm_realloc(void *ptr, size_t size)
         exit(1);
     }
 
+    if(size == 0)
+    {
+        mm_free(ptr)
+        return NULL;
+    }
+
     copySize = GET_SIZE(HDRP(ptr));
     if (size < copySize)
 	copySize = size;
