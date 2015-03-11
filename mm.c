@@ -452,7 +452,7 @@ void *mm_realloc(void *ptr, size_t size)
  */
 static void *coalesce(void *middle)
 {
-/*
+
     size_t left = GET_ALLOC(FTRP(PREV_BLKP(middle)));
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
     size_t size = GET_SIZE(HDRP(middle));
@@ -463,12 +463,14 @@ static void *coalesce(void *middle)
     }
     else if (left && !right) //right neigbor is a free block
     {
+        mm_delete(NEXT_BLKP(middle));
         size += GET_SIZE(HDRP(NEXT_BLKP(middle)));
         PUT(HDRP(middle), PACK(size, 0));
         PUT(FTRP(middle), PACK(size, 0));
     }
     else if (!left && right) //left neigbor is a free block
     {
+        mm_delete(PREV_BLKP(middle));
         size += GET_SIZE(HDRP(PREV_BLKP(middle)));
         PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
         PUT(FTRP(middle), PACK(size, 0));
@@ -476,11 +478,13 @@ static void *coalesce(void *middle)
     }
     else if (!left && !right)   //both neigbors are free blocks
     {
+        mm_delete(PREV_BLKP(middle));
+        mm_delete(NEXT_BLKP(middle));
         size += GET_SIZE(HDRP(PREV_BLKP(middle))) + GET_SIZE(FTRP(NEXT_BLKP(middle)));
         PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
         PUT(FTRP(NEXT_BLKP(middle)), PACK(size, 0));
         middle = PREV_BLKP(middle);
-    }*/
+    }
 
     return middle;
 }
