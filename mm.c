@@ -45,7 +45,8 @@
  * === End User Information ===
  ********************************************************/
 
-team_t team = {
+team_t team =
+{
     /* Group name */
     "PlainStupid",
     /* First member's full name */
@@ -101,42 +102,63 @@ team_t team = {
 #define NEXT_BLKP(bp)  ((char *)(bp) + GET_SIZE(((char *)(bp) - WSIZE)))
 #define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - REQSIZE)))
 
+/* Print debugging information */
+extern int verbose;
+#define VERBOSED 1
+
+#if VERBOSED == 1
+# define PRINT_FUNC printf("Starting function: %s\n",__FUNCTION__);
+#else
+# define PRINT_FUNC
+#endif
+
 static char *heap_start;  /* pointer to the start of out heap*/
 static char *free_startp; /* This points to the beginning of the free list */
-static char *free_endp; /* This pointes to the end of the free list */
-
-int myDebug = 1;
+static char *free_endp = 0; /* This pointes to the end of the free list */
 
 static void *scan_for_free(size_t adjsize);
 static void *new_free_block(size_t words);
 static void place(void *alloc_ptr, size_t size_needed);
 static void *coalesce(void *middle);
+static void mm_checkheap();
 
 /*
  * mm_init - should find the start of the heap and reserve some initial space.
  */
 int mm_init(void)
 {
+    PRINT_FUNC;
+
     heap_start = mem_sbrk(4 * WSIZE); //increment the break pointer by two double words
 
     if (heap_start == NULL)
     {
         return -1; //No more space for heap;
     }
-                                                                                        //                              -----------
+    //                              -----------
     PUT(heap_start, 0);                                                     //padding               | padding |
-                                                                                        //                           |---------|
+    //                           |---------|
     PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));      //prolog header    |   PH    |
-                                                                                        //                           |---------|
+    //                           |---------|
     PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));   //prolog footer      |   PF    |
-                                                                                        //                            |---------|
+    //                            |---------|
     PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));    //epilog header     |   EH    |
-                                                                                        //                           -----------
+    //                           -----------
     heap_start += REQSIZE;
 
-    if (new_free_block(CHUNKSIZE / WSIZE) == NULL ) //initilize some starting free space
+    if (new_free_block(CHUNKSIZE / WSIZE) == NULL )   //initilize some starting free space
     {
         return -1;
+    }
+
+    free_startp = heap_start + DSIZE;
+    free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
+
+    if (VERBOSED)
+    {
+        printf("\n");
+        printf("Free list start pointer: %p\n", free_startp);
+        printf("Free list end pointer: %p\n", free_endp);
     }
 
     return 0;
@@ -149,6 +171,7 @@ int mm_init(void)
  */
 static void *new_free_block(size_t words)
 {
+    PRINT_FUNC;
 
     char *mr_clean;   //pointer to the new free/clean block
     size_t bytes;     //the number of bytes needed for the amount of words
@@ -187,11 +210,13 @@ static void *new_free_block(size_t words)
  */
 void *mm_malloc(size_t size)
 {
+    PRINT_FUNC;
+
     size_t adjsize;
     char *allocspacePtr;
     size_t extend_size;
 
-    //base case: 0
+    /* Base case: 0 */
     if (size <= 0)
     {
         return NULL;
@@ -208,9 +233,15 @@ void *mm_malloc(size_t size)
     }
 
     //scan for free space
-    allocspacePtr = scan_for_free(adjsize);
+    allocspacePtr = scan_for_free(adjsize); /* Same as find_fit in debugging.mp4 */
 
-    if (allocspacePtr != NULL) {
+    if (VERBOSED)
+    {
+        printf("Allocspacept gave: %p\n", allocspacePtr);
+    }
+
+    if (allocspacePtr != NULL)
+    {
 
         //found free space that fits the adjusted size
         place(allocspacePtr, adjsize);
@@ -228,6 +259,7 @@ void *mm_malloc(size_t size)
     }
 
     place(allocspacePtr, adjsize);
+    mm_checkheap();
     return allocspacePtr;
 }
 
@@ -236,6 +268,7 @@ void *mm_malloc(size_t size)
  */
 static void place(void *alloc_ptr, size_t size_needed)
 {
+    PRINT_FUNC;
 
     size_t block_size = GET_SIZE(HDRP(alloc_ptr));      //fetch the size of the block given to us
 
@@ -262,6 +295,14 @@ static void place(void *alloc_ptr, size_t size_needed)
  */
 void mm_free(void *williamWallace)
 {
+    PRINT_FUNC;
+
+    /* Base case: NULL */
+    if (!williamWallace)
+    {
+        return;
+    }
+
     size_t ptrSize = GET_SIZE(HDRP(williamWallace));
 
     //Free the header and footer of given pointer
@@ -276,6 +317,8 @@ void mm_free(void *williamWallace)
  */
 void *mm_realloc(void *ptr, size_t size)
 {
+    PRINT_FUNC;
+
     //TODO: Check if it is possible to extend the current memory adress rather than just reserving more space
     void *newptr;
     size_t copySize;
@@ -296,7 +339,9 @@ void *mm_realloc(void *ptr, size_t size)
 
     copySize = GET_SIZE(HDRP(ptr));
     if (size < copySize)
+    {
         copySize = size;
+    }
     memcpy(newptr, ptr, copySize);
     mm_free(ptr);
     return newptr;
@@ -305,36 +350,50 @@ void *mm_realloc(void *ptr, size_t size)
 /*
  * coalecse -check the two neighboring blocks for alocation, if possible we will merge these blocks together
  */
-static void *coalesce(void *middle) {
+static void *coalesce(void *middle)
+{
+    PRINT_FUNC;
+
+    /* Cases mentioned on page 825 */
 
     size_t left = GET_ALLOC(FTRP(PREV_BLKP(middle)));
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
     size_t size = GET_SIZE(HDRP(middle));
 
+    /* Case 1: The previous and next blocks are both allocated. */
     if (left && right)      //no free block to merge
     {
         return middle;
     }
-    else if (left && !right) //right neigbor is a free block
+
+    /* Case 2: The previous block is allocated and the next block is free. */
+    else if (left && !right)    //right neigbor is a free block
     {
         size += GET_SIZE(HDRP(NEXT_BLKP(middle)));
         PUT(HDRP(middle), PACK(size, 0));
         PUT(FTRP(middle), PACK(size, 0));
     }
-    else if (!left && right) //left neigbor is a free block
+
+    /* Case 3: The previous block is free and the next block is allocated. */
+    else if (!left && right)    //left neigbor is a free block
     {
         size += GET_SIZE(HDRP(PREV_BLKP(middle)));
         PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
         PUT(FTRP(middle), PACK(size, 0));
         middle = PREV_BLKP(middle);
     }
-    else if (!left && !right)   //both neigbors are free blocks
+
+    /* Case 4: The previous and next blocks are both free. */
+    else if (!left && !right)    //both neigbors are free blocks
     {
         size += GET_SIZE(HDRP(PREV_BLKP(middle))) + GET_SIZE(FTRP(NEXT_BLKP(middle)));
         PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
         PUT(FTRP(NEXT_BLKP(middle)), PACK(size, 0));
         middle = PREV_BLKP(middle);
     }
+
+
+    /* Now we add the freed pointer to the free list */
 
     return middle;
 }
@@ -343,21 +402,46 @@ static void *coalesce(void *middle) {
 */
 static void *scan_for_free(size_t reqsize)
 {
+    PRINT_FUNC;
+
+    void *free_list_bp;
+
+    for (free_list_bp = free_startp; !GET_ALLOC(HDRP(free_list_bp)) ; free_list_bp = NEXT_BLKP(free_list_bp))
+    {
+        if (reqsize <= GET_SIZE(HDRP(free_list_bp)) )
+        {
+            return free_list_bp;
+        }
+    }
+
+    return NULL;
+
+    /* Kiddakode
     void *curr;
 
     //Start on the head of the heap and run down it
-    for (curr = heap_start; GET_SIZE(HDRP(curr)) > 0; curr = NEXT_BLKP(curr)) {
+    for (curr = heap_start; GET_SIZE(HDRP(curr)) > 0; curr = NEXT_BLKP(curr))
+    {
         //Found space fits the requierd size
-        if (!GET_ALLOC(HDRP(curr)) && (reqsize <= GET_SIZE(HDRP(curr)))) {
+        if (!GET_ALLOC(HDRP(curr)) && (reqsize <= GET_SIZE(HDRP(curr))))
+        {
             return curr;
         }
     }
-    return NULL; // need more space
+    return NULL; // need more space*/
 }
 
 //TODO: Heap consistency cheker
 
-static void *mm_heapcheck(void)
+static void mm_checkheap(int verbose)
 {
+    PRINT_FUNC;
+
+    char *heap_stp = heap_start; /* Pointer to heap starting poing */
+
+    if (VERBOSED)
+    {
+        printf("Heap pointer: %p\n", heap_stp);
+    }
     return;
 }
