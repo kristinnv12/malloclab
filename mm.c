@@ -95,6 +95,10 @@ team_t team =
 #define GET_ALLOC(p) (GET(p) & 0x1)
 
 /* Given block ptr bp, compute address of its header and footer */
+#define NEXT_PTR(bp)       ((char *)(bp))
+#define PREV_PTR(bp)       ((char *)(bp) + WSIZE)
+
+/* Given block ptr bp, compute address of its header and footer */
 #define HDRP(bp)       ((char *)(bp) - WSIZE)
 #define FTRP(bp)       ((char *)(bp) + GET_SIZE(HDRP(bp)) - REQSIZE)
 
@@ -146,12 +150,11 @@ int mm_init(void)
     //                           -----------
     heap_start += REQSIZE;
 
-    if (new_free_block(CHUNKSIZE / WSIZE) == NULL )   //initilize some starting free space
+    if (free_startp = new_free_block(CHUNKSIZE / WSIZE) == NULL )   //initilize some starting free space
     {
         return -1;
     }
 
-    free_startp = heap_start + DSIZE;
     free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
 
     if (VERBOSED)
@@ -194,6 +197,10 @@ static void *new_free_block(size_t words)
 
     PUT(HDRP(mr_clean), PACK(bytes, 0));   //adding header size boundary tag
     PUT(FTRP(mr_clean), PACK(bytes, 0));   //adding footer sixe boundary tag
+    PUT(NEXT_PTR(mr_clean), 0xdeadbeef);
+    PUT(PREV_PTR(mr_clean), 0x1337b00b);
+
+    mm_checkheap(1);
 
     //TODO: add the next and prev pointers to the block
 
@@ -281,7 +288,10 @@ static void place(void *alloc_ptr, size_t size_needed)
         alloc_ptr = NEXT_BLKP(alloc_ptr);
         PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));     //We have space for a new free block, split the block up
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
+        PUT(NEXT_PTR(alloc_ptr), 0xdeadbeef);
+        PUT(PREV_PTR(alloc_ptr), 0x1337b00b);
         //TODO: Add next and prev pointers
+        mm_checkheap(1);
     }
     else
     {
@@ -308,6 +318,10 @@ void mm_free(void *williamWallace)
     //Free the header and footer of given pointer
     PUT(HDRP(williamWallace), PACK(ptrSize, 0));
     PUT(FTRP(williamWallace), PACK(ptrSize, 0));
+    PUT(NEXT_PTR(williamWallace), 0xdeadbeef);
+    PUT(PREV_PTR(williamWallace), 0x1337b00b);
+
+    mm_checkheap(1);
     //FREEDOM!!!
     coalesce(williamWallace);
 }
@@ -433,15 +447,52 @@ static void *scan_for_free(size_t reqsize)
 
 //TODO: Heap consistency cheker
 
-static void mm_checkheap(int verbose)
+void mm_checkheap(int verbose) 
 {
-    PRINT_FUNC;
+    char *bp = heap_listp;
 
-    char *heap_stp = heap_start; /* Pointer to heap starting poing */
+    if (verbose)
+    printf("Heap (%p):\n", heap_listp);
 
-    if (VERBOSED)
-    {
-        printf("Heap pointer: %p\n", heap_stp);
+    if ((GET_SIZE(HDRP(heap_listp)) != DSIZE) || !GET_ALLOC(HDRP(heap_listp)))
+    printf("Bad prologue header\n");
+    checkblock(heap_listp);
+
+    for (bp = heap_listp; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp)) {
+    if (verbose) 
+        printblock(bp);
+    checkblock(bp);
     }
+     
+    if (verbose)
+    printblock(bp);
+    if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
+    printf("Bad epilogue header\n");
+}
+
+static void printblock(void *bp) 
+{
+    size_t hsize, halloc, fsize, falloc;
+
+    hsize = GET_SIZE(HDRP(bp));
+    halloc = GET_ALLOC(HDRP(bp));  
+    fsize = GET_SIZE(FTRP(bp));
+    falloc = GET_ALLOC(FTRP(bp));  
+    
+    if (hsize == 0) {
+    printf("%p: EOL\n", bp);
     return;
+    }
+
+    printf("%p: header: [%d:%c] footer: [%d:%c]\n", bp, 
+       hsize, (halloc ? 'a' : 'f'), 
+       fsize, (falloc ? 'a' : 'f')); 
+}
+
+static void checkblock(void *bp) 
+{
+    if ((size_t)bp % 8)
+    printf("Error: %p is not doubleword aligned\n", bp);
+    if (GET(HDRP(bp)) != GET(FTRP(bp)))
+    printf("Error: header does not match footer\n");
 }
