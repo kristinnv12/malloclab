@@ -179,6 +179,11 @@ static void *new_free_block(size_t words)
     char *mr_clean;   //pointer to the new free/clean block
     size_t bytes;     //the number of bytes needed for the amount of words
 
+    if(words < 2)
+    {
+        return NULL; //not enough space for next and prev pointers
+    }
+
     if (words % 2)    //need to keep alignment as an even number
     {
         bytes = (words + 1) * WSIZE;
@@ -197,8 +202,8 @@ static void *new_free_block(size_t words)
 
     PUT(HDRP(mr_clean), PACK(bytes, 0));   //adding header size boundary tag
     PUT(FTRP(mr_clean), PACK(bytes, 0));   //adding footer sixe boundary tag
-    PUT(NEXT_PTR(mr_clean), 0xdeadbeef);
-    PUT(PREV_PTR(mr_clean), 0x1337b00b);
+    NEXT_PTR(mr_clean) = 0xdeadbeef;
+    PREV_PTR(mr_clean) = 0x1337b00b;
 
     mm_checkheap(1);
 
@@ -288,8 +293,8 @@ static void place(void *alloc_ptr, size_t size_needed)
         alloc_ptr = NEXT_BLKP(alloc_ptr);
         PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));     //We have space for a new free block, split the block up
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
-        PUT(NEXT_PTR(alloc_ptr), 0xdeadbeef);
-        PUT(PREV_PTR(alloc_ptr), 0x1337b00b);
+        NEXT_PTR(alloc_ptr) = 0xdeadbeef;
+        PREV_PTR(alloc_ptr) = 0x1337b00b;
         //TODO: Add next and prev pointers
         mm_checkheap(1);
     }
@@ -318,8 +323,8 @@ void mm_free(void *williamWallace)
     //Free the header and footer of given pointer
     PUT(HDRP(williamWallace), PACK(ptrSize, 0));
     PUT(FTRP(williamWallace), PACK(ptrSize, 0));
-    PUT(NEXT_PTR(williamWallace), 0xdeadbeef);
-    PUT(PREV_PTR(williamWallace), 0x1337b00b);
+    NEXT_PTR(williamWallace) = 0xdeadbeef;
+    PREV_PTR(williamWallace) = 0x1337b00b;
 
     mm_checkheap(1);
     //FREEDOM!!!
