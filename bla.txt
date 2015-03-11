@@ -1,0 +1,1204 @@
+Team Name:PlainStupid
+Member 1 :Kristinn Vignisson:kristinnv12@ru.is
+Member 2 :Ragnar Pálsson:ragnarp12@ru.is
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: EOL
+Bad epilogue header
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Bad epilogue header
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Bad epilogue header
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [0x1010101] next-block: [0x1010101]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Bad epilogue header
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [0x1010101] next-block: [0x1010101]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [0x1010101] next-block: [0x1010101]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [0x2020202] next-block: [0x2020202]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Bad epilogue header
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [0x1010101] next-block: [0x1010101]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [0x2020202] next-block: [0x2020202]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [0x2020202] next-block: [0x2020202]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [0x3030303] next-block: [0x3030303]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [0x3030303] next-block: [0x3030303]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x1000] next-block: [0x9]
+0xf6a10018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [6144:f] footer: [6144:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a12018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [8192:f] footer: [8192:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a13018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [20480:f] prev-block: [(nil)] next-block: [(nil)]
+Error: header does not match footer
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [12232:f] footer: [12232:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a14018: header: [4096:f] footer: [4096:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:a] footer: [56:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11018: header: [56:f] footer: [56:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:a] footer: [72:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x801] next-block: [0x9]
+0xf6a10018: header: [2048:a] footer: [2048:a] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [2104:f] footer: [2104:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11050: header: [72:f] footer: [72:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a11098: header: [16256:f] footer: [16256:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Heap (0xf6a10010):
+0xf6a10010: header: [8:a] footer: [8:a] prev-block: [0x800] next-block: [0x9]
+0xf6a10018: header: [2048:f] footer: [2048:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a10818: header: [18432:f] footer: [18432:f] prev-block: [(nil)] next-block: [(nil)]
+0xf6a15018: EOL
+Perf index = 12 (util) + 9 (thru) = 22/100
