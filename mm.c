@@ -181,6 +181,11 @@ static void *new_free_block(size_t words)
     char *mr_clean;   //pointer to the new free/clean block
     size_t bytes;     //the number of bytes needed for the amount of words
 
+    if(words < 2)
+    {
+        return NULL; //not enough space for next and prev pointers
+    }
+
     if (words % 2)    //need to keep alignment as an even number
     {
         bytes = (words + 1) * WSIZE;
@@ -292,6 +297,7 @@ static void place(void *alloc_ptr, size_t size_needed)
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
         GET(NEXT_PTR(alloc_ptr))=  0xdeadbeef;
         GET(PREV_PTR(alloc_ptr)) = 0x1337b00b;
+
         //TODO: Add next and prev pointers
         mm_checkheap(1);
     }
