@@ -118,7 +118,7 @@ extern int verbose;
 
 static char *heap_start;  /* pointer to the start of out heap*/
 static char *free_startp; /* This points to the beginning of the free list */
-static char *free_endp = 0; /* This pointes to the end of the free list */
+//static char *free_endp = 0; /* This pointes to the end of the free list */
 
 static void *scan_for_free(size_t adjsize);
 static void *new_free_block(size_t words);
@@ -152,18 +152,20 @@ int mm_init(void)
     //                           -----------
     heap_start += REQSIZE;
 
+    free_startp = NULL;
+
     if (free_startp = new_free_block(CHUNKSIZE / WSIZE) == NULL )   //initilize some starting free space
     {
         return -1;
     }
 
-    free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
+    //free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
 
     if (VERBOSED)
     {
         printf("\n");
         printf("Free list start pointer: %p\n", free_startp);
-        printf("Free list end pointer: %p\n", free_endp);
+        //printf("Free list end pointer: %p\n", free_endp);
     }
 
     return 0;
@@ -178,7 +180,7 @@ static void *new_free_block(size_t words)
 {
     PRINT_FUNC;
 
-    char *mr_clean;   //pointer to the new free/clean block
+    char *new_block;   //pointer to the new free/clean block
     size_t bytes;     //the number of bytes needed for the amount of words
 
     if(words < 2)
@@ -195,17 +197,29 @@ static void *new_free_block(size_t words)
         bytes = words * WSIZE;
     }
 
-    mr_clean = mem_sbrk(bytes);  //increment the brk pointer to get more space
+    new_block = mem_sbrk(bytes);  //increment the brk pointer to get more space
 
-    if (mr_clean == (void *) - 1)
+    if (new_block == (void *) - 1)
     {
         return NULL;    //something went terribly wrong
     }
 
-    PUT(HDRP(mr_clean), PACK(bytes, 0));   //adding header size boundary tag
-    PUT(FTRP(mr_clean), PACK(bytes, 0));   //adding footer sixe boundary tag
-    GET(NEXT_PTR(mr_clean)) = 0xdeadbeef;
-    GET(PREV_PTR(mr_clean)) = 0x1337b00b;
+    PUT(HDRP(new_block), PACK(bytes, 0));   //adding header size boundary tag
+    PUT(FTRP(new_block), PACK(bytes, 0));   //adding footer sixe boundary tag
+
+    GET(PREV_PTR(new_block)) = NULL;
+    
+    if(free_startp == NULL)
+    {
+        GET(NEXT_PTR(new_block)) = NULL;
+    }
+    else
+    {
+        GET(PREV_PTR(free_startp)) = new_block;
+        GET(NEXT_PTR(new_block)) = free_startp;
+        free_startp = new_block;
+    }
+
 
    // mm_checkheap(1);
 
@@ -327,7 +341,7 @@ void mm_free(void *williamWallace)
     PUT(HDRP(williamWallace), PACK(ptrSize, 0));
     PUT(FTRP(williamWallace), PACK(ptrSize, 0));
     GET(NEXT_PTR(williamWallace)) = 0xdeadbeef;
-    GET(PREV_PTR(williamWallace)) =0x1337b00b;
+    GET(PREV_PTR(williamWallace)) = 0x1337b00b;
 
     mm_checkheap(1);
     //FREEDOM!!!
