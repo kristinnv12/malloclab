@@ -127,6 +127,8 @@ static void *coalesce(void *middle);
 static void mm_checkheap();
 static void printblock(void *bp);
 static void checkblock(void *bp);
+static void mm_insert(void *block);
+static void mm_delete(void *block);
 
 /*
  * mm_init - should find the start of the heap and reserve some initial space.
@@ -206,6 +208,8 @@ static void *new_free_block(size_t words)
 
     PUT(HDRP(new_block), PACK(bytes, 0));   //adding header size boundary tag
     PUT(FTRP(new_block), PACK(bytes, 0));   //adding footer sixe boundary tag
+
+    mm_insert(new_block);
 
     GET(PREV_PTR(new_block)) = NULL;
     
@@ -302,50 +306,108 @@ static void place(void *alloc_ptr, size_t size_needed)
 
     size_t block_remainder = block_size - size_needed;
 
+
     if (block_remainder >= (REQSIZE + OVERHEAD))
     {
+
         PUT(HDRP(alloc_ptr), PACK(size_needed, 1));
         PUT(FTRP(alloc_ptr), PACK(size_needed, 1));
-        alloc_ptr = NEXT_BLKP(alloc_ptr);
-        PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));     //We have space for a new free block, split the block up
-        PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
-        GET(NEXT_PTR(alloc_ptr))=  0xdeadbeef;
-        GET(PREV_PTR(alloc_ptr)) = 0x1337b00b;
 
-        //TODO: Add next and prev pointers
+        //delete block from our free list
+        mm_delete(alloc_ptr);
+
+        //We have space for a new free block, split the block up
+        alloc_ptr = NEXT_BLKP(alloc_ptr);
+        PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));
+        PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
+
+        //insert new block to the start of our free list
+        mm_insert(alloc_ptr);
+
         mm_checkheap(1);
     }
     else
     {
+        //delete block from our free list
+        mm_delete(alloc_ptr);
+        //activate the allocated bit
         PUT(HDRP(alloc_ptr), PACK(block_size, 1));
         PUT(FTRP(alloc_ptr), PACK(block_size, 1));
     }
 }
+/*
+ * mm_delete - deleting a free block from our free list
+ */
+void mm_delete(void *block){
 
+    char *next;
+    char *prev;
+
+    next = GET(NEXT_PTR(alloc_ptr));
+    prev = GET(PREV_PTR(alloc_ptr));
+
+    if(next == NULL && prev != NULL)            //Case 0: At the end of a list
+    {
+        GET(NEXT_PTR(prev)) = next;
+    }
+    else if(prev == NULL && next != NULL)       //Case 1: At the start of the list
+    {
+        GET(PREV_PTR(next)) = prev;
+        free_startp = next;
+    }
+    else if(prev == NULL && next == NULL)       //Case 2: Only block left in list
+    {
+        free_startp = NULL;
+    }
+    else if(prev != NULL && next != NULL)       //Case 3: Somewhere in the middle of the list
+    {
+        GET(NEXT_PTR(prev)) = next;
+        GET(PREV_PTR(next)) = prev;
+    }
+}
+/*
+ * mm_insert - inserting new free block to our free list.
+ */
+void mm_insert(void *block){
+
+    GET(PREV_PTR(block)) = NULL;
+    
+    if(free_startp == NULL)             //inserting in an empty list
+    {
+        GET(NEXT_PTR(block)) = NULL;
+    }
+    else
+    {
+        GET(PREV_PTR(free_startp)) = block;
+        GET(NEXT_PTR(block)) = free_startp;
+        free_startp = block;
+    }
+}
 /*
  * mm_free - Freeing a block but does not coalesce the freed space.
  */
-void mm_free(void *williamWallace)
+void mm_free(void *block)
 {
     PRINT_FUNC;
 
     /* Base case: NULL
-    if (!williamWallace)
+    if (!block)
     {
         return;
     }*/
 
-    size_t ptrSize = GET_SIZE(HDRP(williamWallace));
+    size_t ptrSize = GET_SIZE(HDRP(block));
 
     //Free the header and footer of given pointer
-    PUT(HDRP(williamWallace), PACK(ptrSize, 0));
-    PUT(FTRP(williamWallace), PACK(ptrSize, 0));
-    GET(NEXT_PTR(williamWallace)) = 0xdeadbeef;
-    GET(PREV_PTR(williamWallace)) = 0x1337b00b;
+    PUT(HDRP(block), PACK(ptrSize, 0));
+    PUT(FTRP(block), PACK(ptrSize, 0));
+
+    //insert block at the start of our free list
+    mm_insert(block);
 
     mm_checkheap(1);
-    //FREEDOM!!!
-    coalesce(williamWallace);
+
+    coalesce(block);
 }
 
 /*
@@ -390,7 +452,7 @@ void *mm_realloc(void *ptr, size_t size)
  */
 static void *coalesce(void *middle)
 {
-
+/*
     size_t left = GET_ALLOC(FTRP(PREV_BLKP(middle)));
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
     size_t size = GET_SIZE(HDRP(middle));
@@ -418,7 +480,7 @@ static void *coalesce(void *middle)
         PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
         PUT(FTRP(NEXT_BLKP(middle)), PACK(size, 0));
         middle = PREV_BLKP(middle);
-    }
+    }*/
 
     return middle;
 }
@@ -430,9 +492,9 @@ static void *scan_for_free(size_t reqsize)
     void *curr;
 
     //Start on the head of the heap and run down it
-    for (curr = heap_start; GET_SIZE(HDRP(curr)) > 0; curr = NEXT_BLKP(curr)) {
+    for (curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr))) {
         //Found space fits the requierd size
-        if (!GET_ALLOC(HDRP(curr)) && (reqsize <= GET_SIZE(HDRP(curr)))) {
+        if (reqsize <= GET_SIZE(HDRP(curr))) {
             return curr;
         }
     }
