@@ -230,10 +230,10 @@ static void *new_free_block(size_t words)
     //TODO: add the next and prev pointers to the block
 
     //TODO: Can we assume that the epilog header is the next block when we are working with an explicit list ?!?!?!
-    PUT(HDRP(NEXT_BLKP(mr_clean)), PACK(0, 1));     //changing the epilog header
+    PUT(HDRP(NEXT_BLKP(new_block)), PACK(0, 1));     //changing the epilog header
 
     //TODO: Check if the previous block is free and coalesce
-    return coalesce(mr_clean);
+    return coalesce(new_block);
 
 }
 /*
@@ -343,8 +343,8 @@ void mm_delete(void *block){
     char *next;
     char *prev;
 
-    next = GET(NEXT_PTR(alloc_ptr));
-    prev = GET(PREV_PTR(alloc_ptr));
+    next = GET(NEXT_PTR(block));
+    prev = GET(PREV_PTR(block));
 
     if(next == NULL && prev != NULL)            //Case 0: At the end of a list
     {
