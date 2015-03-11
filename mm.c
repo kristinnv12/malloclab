@@ -95,6 +95,10 @@ team_t team =
 #define GET_ALLOC(p) (GET(p) & 0x1)
 
 /* Given block ptr bp, compute address of its header and footer */
+#define NEXT_PTR(bp)       ((char *)(bp))
+#define PREV_PTR(bp)       ((char *)(bp) + WSIZE)
+
+/* Given block ptr bp, compute address of its header and footer */
 #define HDRP(bp)       ((char *)(bp) - WSIZE)
 #define FTRP(bp)       ((char *)(bp) + GET_SIZE(HDRP(bp)) - REQSIZE)
 
@@ -121,6 +125,8 @@ static void *new_free_block(size_t words);
 static void place(void *alloc_ptr, size_t size_needed);
 static void *coalesce(void *middle);
 static void mm_checkheap();
+static void printblock(void *bp);
+static void checkblock(void *bp);
 
 /*
  * mm_init - should find the start of the heap and reserve some initial space.
@@ -146,13 +152,12 @@ int mm_init(void)
     //                           -----------
     heap_start += REQSIZE;
 
-    if (new_free_block(CHUNKSIZE / WSIZE) == NULL )   //initilize some starting free space
+    if (free_startp = new_free_block(CHUNKSIZE / WSIZE) == NULL )   //initilize some starting free space
     {
         return -1;
     }
 
-    //free_startp = heap_start + DSIZE;
-    //free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
+    free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
 
     if (VERBOSED)
     {
@@ -194,6 +199,10 @@ static void *new_free_block(size_t words)
 
     PUT(HDRP(mr_clean), PACK(bytes, 0));   //adding header size boundary tag
     PUT(FTRP(mr_clean), PACK(bytes, 0));   //adding footer sixe boundary tag
+    GET(NEXT_PTR(mr_clean)) = 0xdeadbeef;
+    GET(PREV_PTR(mr_clean)) = 0x1337b00b;
+
+   // mm_checkheap(1);
 
     //TODO: add the next and prev pointers to the block
 
@@ -281,7 +290,10 @@ static void place(void *alloc_ptr, size_t size_needed)
         alloc_ptr = NEXT_BLKP(alloc_ptr);
         PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));     //We have space for a new free block, split the block up
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
+        GET(NEXT_PTR(alloc_ptr))=  0xdeadbeef;
+        GET(PREV_PTR(alloc_ptr)) = 0x1337b00b;
         //TODO: Add next and prev pointers
+        mm_checkheap(1);
     }
     else
     {
@@ -297,17 +309,21 @@ void mm_free(void *williamWallace)
 {
     PRINT_FUNC;
 
-    /* Base case: NULL */
+    /* Base case: NULL
     if (!williamWallace)
     {
         return;
-    }
+    }*/
 
     size_t ptrSize = GET_SIZE(HDRP(williamWallace));
 
     //Free the header and footer of given pointer
     PUT(HDRP(williamWallace), PACK(ptrSize, 0));
     PUT(FTRP(williamWallace), PACK(ptrSize, 0));
+    GET(NEXT_PTR(williamWallace)) = 0xdeadbeef;
+    GET(PREV_PTR(williamWallace)) =0x1337b00b;
+
+    mm_checkheap(1);
     //FREEDOM!!!
     coalesce(williamWallace);
 }
@@ -325,7 +341,7 @@ void *mm_realloc(void *ptr, size_t size)
 
     printf("mm_realloc size is: %d\n", size);
     newptr = mm_malloc(size);
-    printf("mm_reallow - newpr: %p\n",newptr);
+    printf("mm_reallow - newpr: %p\n", newptr);
 
     if (size == 0)
     {
@@ -354,48 +370,35 @@ void *mm_realloc(void *ptr, size_t size)
  */
 static void *coalesce(void *middle)
 {
-    PRINT_FUNC;
-
-    /* Cases mentioned on page 825 */
 
     size_t left = GET_ALLOC(FTRP(PREV_BLKP(middle)));
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
     size_t size = GET_SIZE(HDRP(middle));
 
-    /* Case 1: The previous and next blocks are both allocated. */
     if (left && right)      //no free block to merge
     {
         return middle;
     }
-
-    /* Case 2: The previous block is allocated and the next block is free. */
-    else if (left && !right)    //right neigbor is a free block
+    else if (left && !right) //right neigbor is a free block
     {
         size += GET_SIZE(HDRP(NEXT_BLKP(middle)));
         PUT(HDRP(middle), PACK(size, 0));
         PUT(FTRP(middle), PACK(size, 0));
     }
-
-    /* Case 3: The previous block is free and the next block is allocated. */
-    else if (!left && right)    //left neigbor is a free block
+    else if (!left && right) //left neigbor is a free block
     {
         size += GET_SIZE(HDRP(PREV_BLKP(middle)));
         PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
         PUT(FTRP(middle), PACK(size, 0));
         middle = PREV_BLKP(middle);
     }
-
-    /* Case 4: The previous and next blocks are both free. */
-    else if (!left && !right)    //both neigbors are free blocks
+    else if (!left && !right)   //both neigbors are free blocks
     {
         size += GET_SIZE(HDRP(PREV_BLKP(middle))) + GET_SIZE(FTRP(NEXT_BLKP(middle)));
         PUT(HDRP(PREV_BLKP(middle)), PACK(size, 0));
         PUT(FTRP(NEXT_BLKP(middle)), PACK(size, 0));
         middle = PREV_BLKP(middle);
     }
-
-
-    /* Now we add the freed pointer to the free list */
 
     return middle;
 }
@@ -404,46 +407,91 @@ static void *coalesce(void *middle)
 */
 static void *scan_for_free(size_t reqsize)
 {
-    PRINT_FUNC;
-
-    void *free_list_bp;
-
-    for (free_list_bp = heap_start; !GET_ALLOC(HDRP(free_list_bp)) && GET_SIZE(HDRP(free_list_bp)); free_list_bp = NEXT_BLKP(free_list_bp))
-    {
-        if (reqsize <= GET_SIZE(HDRP(free_list_bp)) )
-        {
-            return free_list_bp;
-        }
-    }
-
-    return NULL;
-
-    /* Kiddakode
     void *curr;
 
     //Start on the head of the heap and run down it
-    for (curr = heap_start; GET_SIZE(HDRP(curr)) > 0; curr = NEXT_BLKP(curr))
-    {
+    for (curr = heap_start; GET_SIZE(HDRP(curr)) > 0; curr = NEXT_BLKP(curr)) {
         //Found space fits the requierd size
-        if (!GET_ALLOC(HDRP(curr)) && (reqsize <= GET_SIZE(HDRP(curr))))
-        {
+        if (!GET_ALLOC(HDRP(curr)) && (reqsize <= GET_SIZE(HDRP(curr)))) {
             return curr;
         }
     }
-    return NULL; // need more space*/
+    return NULL; // need more space
 }
 
 //TODO: Heap consistency cheker
 
-static void mm_checkheap(int verbose)
+//TODO: Heap consistency cheker
+
+void mm_checkheap(int verbose)
 {
-    PRINT_FUNC;
+    char *bp = heap_start;
 
-    char *heap_stp = heap_start; /* Pointer to heap starting poing */
-
-    if (VERBOSED)
+    if (verbose)
     {
-        printf("Heap pointer: %p\n", heap_stp);
+        printf("Heap (%p):\n", heap_start);
     }
-    return;
+
+    if ((GET_SIZE(HDRP(heap_start)) != DSIZE) || !GET_ALLOC(HDRP(heap_start)))
+    {
+        printf("Bad prologue header\n");
+    }
+    checkblock(heap_start);
+
+
+    for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
+    {
+
+        if (verbose)
+        {
+            printblock(bp);
+        }
+        checkblock(bp);
+    }
+
+    if (verbose)
+    {
+        printblock(bp);
+    }
+    if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
+    {
+        printf("Bad epilogue header\n");
+    }
+}
+
+static void printblock(void *bp)
+{
+    size_t hsize, halloc, fsize, falloc;
+
+    char *next_block, *prev_block;
+
+    hsize = GET_SIZE(HDRP(bp));
+    halloc = GET_ALLOC(HDRP(bp));
+    fsize = GET_SIZE(FTRP(bp));
+    falloc = GET_ALLOC(FTRP(bp));
+    next_block = GET(NEXT_PTR(bp));
+    prev_block = GET(PREV_PTR(bp));
+
+    if (hsize == 0)
+    {
+        printf("%p: EOL\n", bp);
+        return;
+    }
+
+    printf("%p: header: [%d:%c] footer: [%d:%c] prev-block: [%p] next-block: [%p]\n", bp,
+           hsize, (halloc ? 'a' : 'f'),
+           fsize, (falloc ? 'a' : 'f'),
+           prev_block, next_block);
+}
+
+static void checkblock(void *bp)
+{
+    if ((size_t)bp % 8)
+    {
+        printf("Error: %p is not doubleword aligned\n", bp);
+    }
+    if (GET(HDRP(bp)) != GET(FTRP(bp)))
+    {
+        printf("Error: header does not match footer\n");
+    }
 }
