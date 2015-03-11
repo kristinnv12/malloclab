@@ -102,6 +102,10 @@ team_t team = {
 #define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - REQSIZE)))
 
 static char *heap_start;  /* pointer to the start of out heap*/
+static char *free_startp; /* This points to the beginning of the free list */
+static char *free_endp; /* This pointes to the end of the free list */
+
+int myDebug = 1;
 
 static void *scan_for_free(size_t adjsize);
 static void *new_free_block(size_t words);
@@ -119,15 +123,15 @@ int mm_init(void)
     {
         return -1; //No more space for heap;
     }
-    //                                  -----------
-    PUT(heap_start, 0);                                 //padding                           | padding |
-    //                                  |---------|
-    PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));         //prolog header                     |   PH    |
-    //                                  |---------|
-    PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));       //prolog footer                     |   PF    |
-    //                                  |---------|
-    PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));      //epilog header                     |   EH    |
-    //                                  -----------
+                                                                                        //                              -----------
+    PUT(heap_start, 0);                                                     //padding               | padding |
+                                                                                        //                           |---------|
+    PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));      //prolog header    |   PH    |
+                                                                                        //                           |---------|
+    PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));   //prolog footer      |   PF    |
+                                                                                        //                            |---------|
+    PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));    //epilog header     |   EH    |
+                                                                                        //                           -----------
     heap_start += REQSIZE;
 
     if (new_free_block(CHUNKSIZE / WSIZE) == NULL ) //initilize some starting free space
@@ -352,3 +356,8 @@ static void *scan_for_free(size_t reqsize)
 }
 
 //TODO: Heap consistency cheker
+
+static void *mm_heapcheck(void)
+{
+    return;
+}
