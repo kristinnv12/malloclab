@@ -151,8 +151,8 @@ int mm_init(void)
         return -1;
     }
 
-    free_startp = heap_start + DSIZE;
-    free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
+    //free_startp = heap_start + DSIZE;
+    //free_endp = free_startp;    /* Let end of free list point to the beginning of the list*/
 
     if (VERBOSED)
     {
@@ -323,7 +323,9 @@ void *mm_realloc(void *ptr, size_t size)
     void *newptr;
     size_t copySize;
 
+    printf("mm_realloc size is: %d\n", size);
     newptr = mm_malloc(size);
+    printf("mm_reallow - newpr: %p\n",newptr);
 
     if (size == 0)
     {
@@ -406,7 +408,7 @@ static void *scan_for_free(size_t reqsize)
 
     void *free_list_bp;
 
-    for (free_list_bp = free_startp; !GET_ALLOC(HDRP(free_list_bp)) ; free_list_bp = NEXT_BLKP(free_list_bp))
+    for (free_list_bp = heap_start; !GET_ALLOC(HDRP(free_list_bp)) && GET_SIZE(HDRP(free_list_bp)); free_list_bp = NEXT_BLKP(free_list_bp))
     {
         if (reqsize <= GET_SIZE(HDRP(free_list_bp)) )
         {
