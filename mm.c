@@ -407,11 +407,9 @@ void *mm_realloc(void *ptr, size_t size)
     //TODO: Check if it is possible to extend the current memory adress rather than just reserving more space
     void *newptr;
     size_t copySize;
-/*
-    printf("mm_realloc size is: %d\n", size);
+
     newptr = mm_malloc(size);
-    printf("mm_reallow - newpr: %p\n", newptr);
-*/
+
     if (size == 0)
     {
         mm_free(ptr);
