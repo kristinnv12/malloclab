@@ -292,8 +292,12 @@ static void place(void *alloc_ptr, size_t size_needed)
 
     size_t block_remainder = block_size - size_needed;
 
-    //delete block from our free list
-    mm_delete(alloc_ptr);
+    //check if reallocating
+    if(!GET_ALLOC(HDRP(alloc_ptr)))
+    {
+        //delete block from our free list
+        mm_delete(alloc_ptr);
+    }
 
     if (block_remainder >= (REQSIZE + OVERHEAD))
     {
@@ -305,9 +309,10 @@ static void place(void *alloc_ptr, size_t size_needed)
         alloc_ptr = NEXT_BLKP(alloc_ptr);
         PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
-
+        
         //insert new block to the start of our free list
         mm_insert(alloc_ptr);
+        
     }
     else
     {
@@ -420,7 +425,7 @@ void *mm_realloc(void *ptr, size_t size)
     {
         mm_free(ptr);
         return NULL;
-    }
+    }   
 
     if (size <= REQSIZE)
     {
@@ -429,6 +434,12 @@ void *mm_realloc(void *ptr, size_t size)
     else
     {
         size = REQSIZE * ((size + (OVERHEAD) + (REQSIZE - 1)) / REQSIZE);
+    }
+
+    if (size < copySize)
+    {
+        place(ptr, size);
+        return ptr;
     }
 
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(ptr)));
@@ -471,10 +482,7 @@ void *mm_realloc(void *ptr, size_t size)
         exit(1);
     }
 
-    if (size < copySize)
-    {
-        copySize = size;
-    }
+
     //copy content to new adress
     memcpy(newptr, ptr, copySize);
     mm_free(ptr);
