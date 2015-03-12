@@ -423,23 +423,31 @@ void *mm_realloc(void *ptr, size_t size)
     {
         return ptr;
     }
-
+/*
     if (size == 0)
     {
         mm_free(ptr);
         return NULL;
     }
 
+    if (size <= REQSIZE)
+    {
+        size = REQSIZE + OVERHEAD;
+    }
+    else
+    {
+        size = REQSIZE * ((size + (OVERHEAD) + (REQSIZE - 1)) / REQSIZE);
+    }
+
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(ptr)));
     size_t new_size = (GET_SIZE(HDRP(NEXT_BLKP(ptr)))) + copySize;
     size_t right_remainder = new_size - size;
 
-    if(right == 0 && new_size > (size + OVERHEAD) && GET_SIZE(NEXT_BLKP(ptr)) != 0)
+    if(right == 0 && new_size > size && GET_SIZE(HDRP(NEXT_BLKP(ptr))) != 0)
     {
-        printf("bla\n");
         mm_delete(NEXT_BLKP(ptr));
-        PUT(HDRP(ptr), PACK(new_size, 1));
-        PUT(FTRP(ptr), PACK(new_size, 1));
+        PUT(HDRP(ptr), PACK(size, 1));
+        PUT(FTRP(ptr), PACK(size, 1));
 
         if(right_remainder >= REQSIZE + OVERHEAD)
         {
@@ -451,7 +459,7 @@ void *mm_realloc(void *ptr, size_t size)
         }
         return ptr;
     }
-    
+    */
     newptr = mm_malloc(size);
 
     if (newptr == NULL)
