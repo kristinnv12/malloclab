@@ -521,9 +521,9 @@ void mm_checkheap(int verbose)
     for(curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
     {
 
-    	if(curr >= mem_heap_lo() || curr <= mem_heap_hi())
+    	if(curr < mem_heap_lo() || curr > mem_heap_hi())
     	{
-            printf("free list adress out of bounds \n");
+            printf("free list adress (%p) out of bounds \n", curr);
     	}
         else
         {
