@@ -108,7 +108,7 @@ team_t team =
 
 /* Print debugging information */
 extern int verbose;
-#define VERBOSED 0
+#define VERBOSED 1
 
 #if VERBOSED == 1
 # define PRINT_FUNC printf("Starting function: %s\n",__FUNCTION__);
@@ -518,8 +518,12 @@ void mm_checkheap(int verbose)
     }
 
     char *curr;
-    for(curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
+    for(curr = free_startp; curr != NULL && curr >= mem_heap_lo() &&; curr = GET(NEXT_PTR(curr)))
     {
+	if(curr >= mem_heap_lo() || curr <= mem_heap_hi())
+	{
+
+	}
 	printf("(%p)->", curr);
     }
     printf("\n");
