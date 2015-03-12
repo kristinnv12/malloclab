@@ -119,6 +119,8 @@ extern int verbose;
 static char *heap_start;  /* pointer to the start of out heap*/
 static char *free_startp; /* This points to the beginning of the free list */
 //static char *free_endp = 0; /* This pointes to the end of the free list */
+static int debugCount;
+static int insertCount;
 
 static void *scan_for_free(size_t adjsize);
 static void *new_free_block(size_t words);
@@ -135,6 +137,8 @@ static void mm_delete(void *block);
  */
 int mm_init(void)
 {
+    debugCount = 0;
+    insertCount = 0;
     PRINT_FUNC;
 
     heap_start = mem_sbrk(4 * WSIZE); //increment the break pointer by two double words
@@ -207,10 +211,12 @@ static void *new_free_block(size_t words)
     PUT(HDRP(new_block), PACK(bytes, 0));   //adding header size boundary tag
     PUT(FTRP(new_block), PACK(bytes, 0));   //adding footer sixe boundary tag
 
-    mm_insert(new_block);
 
     //TODO: Can we assume that the epilog header is the next block when we are working with an explicit list ?!?!?!
     PUT(HDRP(NEXT_BLKP(new_block)), PACK(0, 1));     //changing the epilog header
+
+    mm_insert(new_block);
+
     mm_checkheap(verbose);
     return coalesce(new_block);
 
@@ -354,6 +360,7 @@ void mm_insert(void *block){
     {
         GET(NEXT_PTR(block)) = NULL;
 	free_startp = block;
+    insertCount = insertCount + 1;
     }
     else
     {
@@ -470,6 +477,8 @@ static void *coalesce(void *middle)
 
     mm_insert(middle);
 
+    mm_checkheap(verbose);
+
     return middle;
 }
 /*
@@ -493,6 +502,7 @@ static void *scan_for_free(size_t reqsize)
 
 void mm_checkheap(int verbose)
 {
+    debugCount = 0;
     PRINT_FUNC;
 
     char *bp = heap_start;
@@ -507,14 +517,17 @@ void mm_checkheap(int verbose)
     }
     checkblock(heap_start);
 
-    for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
+    if(verbose == 2)
     {
-
-        if (verbose)
+        for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
         {
-            printblock(bp);
+
+            if (verbose)
+            {
+                printblock(bp);
+            }
+            checkblock(bp);
         }
-        checkblock(bp);
     }
 
     if(verbose)
@@ -522,15 +535,17 @@ void mm_checkheap(int verbose)
     	printblock(bp);
     }
 
+    int leet = 0;
     char *curr;
+
     for(curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
     {
 
     	if(curr < mem_heap_lo() || curr > mem_heap_hi())
     	{
-	    int leet = 1337;
+            leet = 1337;
             printf("free list adress (%p) out of bounds \n", curr);
-	    break;
+            break;
     	}
         else
         {
@@ -539,10 +554,23 @@ void mm_checkheap(int verbose)
     }
     printf("\n");
 
+
+
     if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
     {
         printf("Bad epilogue header\n");
     }
+
+    if(debugCount >= 2)
+    {
+        printf("ERRRRRRRRRRRRROOOOOOOOOOOORRRRRRRRRRRRR!!!!!!!!!!!!! %d \n", debugCount);
+        if(debugCount >= 2)
+        {
+            exit(-1);
+        }
+    }
+
+    printf("insert count: %d\n", insertCount);
 }
 
 static void printblock(void *bp)
@@ -564,6 +592,11 @@ static void printblock(void *bp)
         return;
     }
 
+    if(halloc == 0 && prev_block == NULL)
+    {
+        debugCount = debugCount + 1;
+    }
+    
     printf("%p: header: [%d:%c] footer: [%d:%c] prev-block: [%p] next-block: [%p]\n", bp,
            hsize, (halloc ? 'a' : 'f'),
            fsize, (falloc ? 'a' : 'f'),
