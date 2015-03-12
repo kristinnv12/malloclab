@@ -155,6 +155,7 @@ int mm_init(void)
     heap_start += REQSIZE;
 
     free_startp = NULL;
+    mm_checkheap(verbose);
     free_startp = new_free_block(CHUNKSIZE/WSIZE);
 
     if (free_startp == NULL)   //initilize some starting free space
@@ -162,12 +163,11 @@ int mm_init(void)
         return -1;
     }
 
-    if (VERBOSED)
+    if (verbose)
     {
         printf("\n");
         printf("Free list start pointer: %p\n", free_startp);
     }
-
     return 0;
 }
 
@@ -209,11 +209,9 @@ static void *new_free_block(size_t words)
 
     mm_insert(new_block);
 
-    mm_checkheap(verbose);
-
     //TODO: Can we assume that the epilog header is the next block when we are working with an explicit list ?!?!?!
     PUT(HDRP(NEXT_BLKP(new_block)), PACK(0, 1));     //changing the epilog header
-
+    mm_checkheap(verbose);
     return coalesce(new_block);
 
 }
@@ -287,15 +285,14 @@ static void place(void *alloc_ptr, size_t size_needed)
 
     size_t block_remainder = block_size - size_needed;
 
+    //delete block from our free list
+    mm_delete(alloc_ptr);
 
     if (block_remainder >= (REQSIZE + OVERHEAD))
     {
 
         PUT(HDRP(alloc_ptr), PACK(size_needed, 1));
         PUT(FTRP(alloc_ptr), PACK(size_needed, 1));
-
-        //delete block from our free list
-        mm_delete(alloc_ptr);
 
         //We have space for a new free block, split the block up
         alloc_ptr = NEXT_BLKP(alloc_ptr);
@@ -322,8 +319,8 @@ void mm_delete(void *block){
     char *next;
     char *prev;
 
-    next = NEXT_PTR(block);
-    prev = PREV_PTR(block);
+    next = GET(NEXT_PTR(block));
+    prev = GET(PREV_PTR(block));
 
     if(next == NULL && prev != NULL)            //Case 0: At the end of a list
     {
@@ -363,7 +360,6 @@ void mm_insert(void *block){
         free_startp = block;
     }
 
-    mm_checkheap(verbose);
 }
 /*
  * mm_free - Freeing a block but does not coalesce the freed space.
@@ -387,7 +383,7 @@ void mm_free(void *block)
     //insert block at the start of our free list
     mm_insert(block);
 
-    //mm_checkheap(1);
+    mm_checkheap(verbose);
 
     coalesce(block);
 }
@@ -439,6 +435,8 @@ static void *coalesce(void *middle)
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
     size_t size = GET_SIZE(HDRP(middle));
 
+    mm_delete(middle);
+
     if (left && right)      //no free block to merge
     {
         return middle;
@@ -467,6 +465,8 @@ static void *coalesce(void *middle)
         PUT(FTRP(NEXT_BLKP(middle)), PACK(size, 0));
         middle = PREV_BLKP(middle);
     }
+
+    mm_insert(middle);
 
     return middle;
 }
@@ -502,7 +502,6 @@ void mm_checkheap(int verbose)
     }
     checkblock(heap_start);
 
-
     for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
     {
 
@@ -513,15 +512,18 @@ void mm_checkheap(int verbose)
         checkblock(bp);
     }
 
-/*    for(bp = free_startp; bp != NULL; bp = GET(NEXT_PTR(bp)))
+    if(verbose)
     {
-	printf("(%p):\n", bp);
+    	printblock(bp);
     }
-*/
-    if (verbose)
+
+    char *curr;
+    for(curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
     {
-        printblock(bp);
+	printf("(%p)->", curr);
     }
+    printf("\n");
+
     if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
     {
         printf("Bad epilogue header\n");
