@@ -406,7 +406,9 @@ void *mm_realloc(void *ptr, size_t size)
 {
 
     /*
-        Finna hvort block við hliðina á sé laus.
+        *Finna hvort block við hliðina á sé laus.
+        *Athuga hvort það sem er hægra meginn sé laustþá færa footer og breyta headers size
+        *Ef size er minna þá gera cut á blockina og færa footer og breyta headersize
      */
     PRINT_FUNC;
 
