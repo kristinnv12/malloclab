@@ -108,9 +108,9 @@ team_t team =
 
 /* Print debugging information */
 static int verbose = 0;
-#define VERBOSED 0
+#define VERBOSE 0
 
-#if VERBOSED == 1
+#if VERBOSE == 1
 # define PRINT_FUNC printf("Starting function: %s\n",__FUNCTION__);
 #else
 # define PRINT_FUNC
@@ -147,27 +147,27 @@ int mm_init(void)
     {
         return -1; //No more space for heap;
     }
-    								    	    //                      -----------
+    //                      -----------
     PUT(heap_start, 0);                                                     // padding              | padding |
-   								            //                      |---------|
-    PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));      			    // prolog header        |   PH    |
-   	 								    //                      |---------|
-    PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));   			    // prolog footer        |   PF    |
-									    //                      |---------|
-    PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));    			    // epilog header        |   EH    |
-									    //                      -----------
+    //                      |---------|
+    PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));                     // prolog header        |   PH    |
+    //                      |---------|
+    PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));                   // prolog footer        |   PF    |
+    //                      |---------|
+    PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));                  // epilog header        |   EH    |
+    //                      -----------
     heap_start += REQSIZE;
 
     free_startp = NULL;
     //mm_checkheap(verbose);
-    free_startp = new_free_block(CHUNKSIZE/WSIZE);
+    free_startp = new_free_block(CHUNKSIZE / WSIZE);
 
     if (free_startp == NULL)   //initilize some starting free space
     {
         return -1;
     }
 
-    if (verbose)
+    if (VERBOSE)
     {
         printf("\n");
         printf("Free list start pointer: %p\n", free_startp);
@@ -187,7 +187,7 @@ static void *new_free_block(size_t words)
     char *new_block;   //pointer to the new free/clean block
     size_t bytes;     //the number of bytes needed for the amount of words
 
-    if(words < 2)
+    if (words < 2)
     {
         return NULL; //not enough space for next and prev pointers
     }
@@ -252,7 +252,7 @@ void *mm_malloc(size_t size)
     //scan for free space
     allocspacePtr = scan_for_free(adjsize); /* Same as find_fit in debugging.mp4 */
 
-    if (VERBOSED)
+    if (VERBOSE)
     {
         printf("Allocspacept gave: %p\n", allocspacePtr);
     }
@@ -320,7 +320,8 @@ static void place(void *alloc_ptr, size_t size_needed)
 /*
  * mm_delete - deleting a free block from our free list
  */
-void mm_delete(void *block){
+void mm_delete(void *block)
+{
 
     PRINT_FUNC;
     char *next;
@@ -329,20 +330,20 @@ void mm_delete(void *block){
     next = GET(NEXT_PTR(block));
     prev = GET(PREV_PTR(block));
 
-    if(next == NULL && prev != NULL)            //Case 0: At the end of a list
+    if (next == NULL && prev != NULL)           //Case 0: At the end of a list
     {
         GET(NEXT_PTR(prev)) = next;
     }
-    else if(prev == NULL && next != NULL)       //Case 1: At the start of the list
+    else if (prev == NULL && next != NULL)      //Case 1: At the start of the list
     {
         GET(PREV_PTR(next)) = prev;
         free_startp = next;
     }
-    else if(prev == NULL && next == NULL)       //Case 2: Only block left in list
+    else if (prev == NULL && next == NULL)      //Case 2: Only block left in list
     {
         free_startp = NULL;
     }
-    else if(prev != NULL && next != NULL)       //Case 3: Somewhere in the middle of the list
+    else if (prev != NULL && next != NULL)      //Case 3: Somewhere in the middle of the list
     {
         GET(NEXT_PTR(prev)) = next;
         GET(PREV_PTR(next)) = prev;
@@ -351,16 +352,17 @@ void mm_delete(void *block){
 /*
  * mm_insert - inserting new free block to our free list.
  */
-void mm_insert(void *block){
+void mm_insert(void *block)
+{
 
     PRINT_FUNC;
     GET(PREV_PTR(block)) = NULL;
 
-    if(free_startp == NULL)             //inserting in an empty list
+    if (free_startp == NULL)            //inserting in an empty list
     {
         GET(NEXT_PTR(block)) = NULL;
-	free_startp = block;
-    insertCount = insertCount + 1;
+        free_startp = block;
+        insertCount = insertCount + 1;
     }
     else
     {
@@ -402,21 +404,31 @@ void mm_free(void *block)
  */
 void *mm_realloc(void *ptr, size_t size)
 {
+
+    /*
+        Finna hvort block við hliðina á sé laus.
+     */
     PRINT_FUNC;
 
     //TODO: Check if it is possible to extend the current memory adress rather than just reserving more space
     void *newptr;
     size_t copySize;
-/*
-    printf("mm_realloc size is: %d\n", size);
-    newptr = mm_malloc(size);
-    printf("mm_reallow - newpr: %p\n", newptr);
-*/
+
+    copySize = GET_SIZE(HDRP(ptr));
+
+    // We don't have to realloc if new size == copySize
+    if (copySize == size)
+    {
+        return ptr;
+    }
+
     if (size == 0)
     {
         mm_free(ptr);
         return NULL;
     }
+
+    newptr = mm_malloc(size);
 
     if (newptr == NULL)
     {
@@ -424,7 +436,6 @@ void *mm_realloc(void *ptr, size_t size)
         exit(1);
     }
 
-    copySize = GET_SIZE(HDRP(ptr));
     if (size < copySize)
     {
         copySize = size;
@@ -484,9 +495,11 @@ static void *scan_for_free(size_t reqsize)
     void *curr;
 
     //Start on the head of the heap and run down it
-    for (curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr))) {
+    for (curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
+    {
         //Found space fits the requierd size
-        if (reqsize <= GET_SIZE(HDRP(curr))) {
+        if (reqsize <= GET_SIZE(HDRP(curr)))
+        {
             return curr;
         }
     }
@@ -496,7 +509,6 @@ static void *scan_for_free(size_t reqsize)
 
 void mm_checkheap(int verbose)
 {
-    debugCount = 0;
     PRINT_FUNC;
 
     char *bp = heap_start;
@@ -511,12 +523,12 @@ void mm_checkheap(int verbose)
     }
     checkblock(heap_start);
 
-    if(verbose == 2)
+    if (verbose == 2)
     {
         for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
         {
 
-            if (verbose)
+            if (VERBOSE)
             {
                 printblock(bp);
             }
@@ -524,29 +536,27 @@ void mm_checkheap(int verbose)
         }
     }
 
-    if(verbose)
+    if (verbose)
     {
-    	printblock(bp);
-    
+        printblock(bp);
 
-    int leet = 0;
-    char *curr;
 
-    for(curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
-    {
+        char *curr;
 
-    	if(curr < mem_heap_lo() || curr > mem_heap_hi())
-    	{
-            leet = 1337;
-            printf("free list adress (%p) out of bounds \n", curr);
-            break;
-    	}
-        else
+        for (curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
         {
-    	   printf("(%p)->", curr);
+
+            if (curr < mem_heap_lo() || curr > mem_heap_hi())
+            {
+                printf("free list adress (%p) out of bounds \n", curr);
+                break;
+            }
+            else
+            {
+                printf("(%p)->", curr);
+            }
         }
-    }
-    printf("\n");
+        printf("\n");
 
 
     }
@@ -555,14 +565,6 @@ void mm_checkheap(int verbose)
         printf("Bad epilogue header\n");
     }
 
-    if(debugCount >= 2)
-    {
-        printf("ERRRRRRRRRRRRROOOOOOOOOOOORRRRRRRRRRRRR!!!!!!!!!!!!! %d \n", debugCount);
-        if(debugCount >= 2)
-        {
-            exit(-1);
-        }
-    }
 }
 
 static void printblock(void *bp)
@@ -584,11 +586,6 @@ static void printblock(void *bp)
         return;
     }
 
-    if(halloc == 0 && prev_block == NULL)
-    {
-        debugCount = debugCount + 1;
-    }
-    
     printf("%p: header: [%d:%c] footer: [%d:%c] prev-block: [%p] next-block: [%p]\n", bp,
            hsize, (halloc ? 'a' : 'f'),
            fsize, (falloc ? 'a' : 'f'),
