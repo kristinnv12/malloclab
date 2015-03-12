@@ -106,9 +106,9 @@ team_t team =
 
 /* Print debugging information */
 extern int verbose;
-#define VERBOSED 0
+#define VERBOSED 1
 
-#if VERBOSE == 1
+#if VERBOSED == 1
 # define PRINT_FUNC printf("Starting function: %s\n",__FUNCTION__);
 #else
 # define PRINT_FUNC
@@ -252,7 +252,7 @@ void *mm_malloc(size_t size)
 
     if (VERBOSED)
     {
-        printf("Allocspacept gave: %p\n", allocspacePtr);
+        printf("AllocspacePtr gave: %p\n", allocspacePtr);
     }
 
     if (allocspacePtr != NULL)
