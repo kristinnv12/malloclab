@@ -518,13 +518,17 @@ void mm_checkheap(int verbose)
     }
 
     char *curr;
-    for(curr = free_startp; curr != NULL && curr >= mem_heap_lo() &&; curr = GET(NEXT_PTR(curr)))
+    for(curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
     {
-	if(curr >= mem_heap_lo() || curr <= mem_heap_hi())
-	{
 
-	}
-	printf("(%p)->", curr);
+    	if(curr >= mem_heap_lo() || curr <= mem_heap_hi())
+    	{
+            printf("free list adress out of bounds \n");
+    	}
+        else
+        {
+    	   printf("(%p)->", curr);
+        }
     }
     printf("\n");
 
