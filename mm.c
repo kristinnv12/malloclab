@@ -107,8 +107,8 @@ team_t team =
 #define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - REQSIZE)))
 
 /* Print debugging information */
-extern int verbose;
-#define VERBOSED 1
+static int verbose = 0;
+#define VERBOSED 0
 
 #if VERBOSED == 1
 # define PRINT_FUNC printf("Starting function: %s\n",__FUNCTION__);
@@ -159,7 +159,7 @@ int mm_init(void)
     heap_start += REQSIZE;
 
     free_startp = NULL;
-    mm_checkheap(verbose);
+    //mm_checkheap(verbose);
     free_startp = new_free_block(CHUNKSIZE/WSIZE);
 
     if (free_startp == NULL)   //initilize some starting free space
@@ -217,7 +217,7 @@ static void *new_free_block(size_t words)
 
     mm_insert(new_block);
 
-    mm_checkheap(verbose);
+    //mm_checkheap(verbose);
     return coalesce(new_block);
 
 }
@@ -276,7 +276,7 @@ void *mm_malloc(size_t size)
     }
 
     place(allocspacePtr, adjsize);
-    mm_checkheap(verbose);
+    //mm_checkheap(verbose);
     return allocspacePtr;
 }
 
@@ -392,7 +392,7 @@ void mm_free(void *block)
     //insert block at the start of our free list
     mm_insert(block);
 
-    mm_checkheap(verbose);
+    //mm_checkheap(verbose);
 
     coalesce(block);
 }
@@ -446,11 +446,7 @@ static void *coalesce(void *middle)
 
     mm_delete(middle);
 
-    if (left && right)      //no free block to merge
-    {
-        return middle;
-    }
-    else if (left && !right) //right neigbor is a free block
+    if (left && !right) //right neigbor is a free block
     {
         mm_delete(NEXT_BLKP(middle));
         size += GET_SIZE(HDRP(NEXT_BLKP(middle)));
@@ -476,8 +472,6 @@ static void *coalesce(void *middle)
     }
 
     mm_insert(middle);
-
-    mm_checkheap(verbose);
 
     return middle;
 }
@@ -533,7 +527,7 @@ void mm_checkheap(int verbose)
     if(verbose)
     {
     	printblock(bp);
-    }
+    
 
     int leet = 0;
     char *curr;
@@ -555,7 +549,7 @@ void mm_checkheap(int verbose)
     printf("\n");
 
 
-
+    }
     if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
     {
         printf("Bad epilogue header\n");
@@ -569,8 +563,6 @@ void mm_checkheap(int verbose)
             exit(-1);
         }
     }
-
-    printf("insert count: %d\n", insertCount);
 }
 
 static void printblock(void *bp)
