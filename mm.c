@@ -106,7 +106,7 @@ team_t team =
 
 /* Print debugging information */
 extern int verbose;
-#define VERBOSED 1
+#define VERBOSED 0
 
 #if VERBOSED == 1
 # define PRINT_FUNC printf("Starting function: %s\n",__FUNCTION__);
