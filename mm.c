@@ -316,6 +316,7 @@ static void place(void *alloc_ptr, size_t size_needed)
  */
 void mm_delete(void *block){
 
+    PRINT_FUNC;
     char *next;
     char *prev;
 
@@ -346,8 +347,9 @@ void mm_delete(void *block){
  */
 void mm_insert(void *block){
 
+    PRINT_FUNC;
     GET(PREV_PTR(block)) = NULL;
-    
+
     if(free_startp == NULL)             //inserting in an empty list
     {
         GET(NEXT_PTR(block)) = NULL;
@@ -393,7 +395,7 @@ void mm_free(void *block)
  */
 void *mm_realloc(void *ptr, size_t size)
 {
-    //PRINT_FUNC;
+    PRINT_FUNC;
 
     //TODO: Check if it is possible to extend the current memory adress rather than just reserving more space
     void *newptr;
@@ -430,7 +432,7 @@ void *mm_realloc(void *ptr, size_t size)
  */
 static void *coalesce(void *middle)
 {
-
+    PRINT_FUNC;
     size_t left = GET_ALLOC(FTRP(PREV_BLKP(middle)));
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
     size_t size = GET_SIZE(HDRP(middle));
@@ -475,6 +477,7 @@ static void *coalesce(void *middle)
 */
 static void *scan_for_free(size_t reqsize)
 {
+    PRINT_FUNC;
     void *curr;
 
     //Start on the head of the heap and run down it
@@ -490,6 +493,8 @@ static void *scan_for_free(size_t reqsize)
 
 void mm_checkheap(int verbose)
 {
+    PRINT_FUNC;
+
     char *bp = heap_start;
     if (verbose)
     {
@@ -523,7 +528,9 @@ void mm_checkheap(int verbose)
 
     	if(curr < mem_heap_lo() || curr > mem_heap_hi())
     	{
+	    int leet = 1337;
             printf("free list adress (%p) out of bounds \n", curr);
+	    break;
     	}
         else
         {
