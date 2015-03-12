@@ -66,8 +66,6 @@ team_t team =
 /* Basic constants and macros (from mm-firstfit.c)*/
 
 #define REQSIZE     8       /* doubleword size (bytes) */
-#define DSIZE     8
-//TODO change over head to include next and prev pointers
 #define OVERHEAD    8       /* overhead of header and footer (bytes) */
 #define WSIZE       4       /* word size (bytes) */
 #define CHUNKSIZE  (1<<12)  /* initial heap size (bytes) */
@@ -90,7 +88,7 @@ team_t team =
 #define GET(p)       (*(size_t *)(p))
 #define PUT(p, val)  (*(size_t *)(p) = (val))
 
-/*Read the size and allocated fields from address p */
+/* Read the size and allocated fields from address p */
 #define GET_SIZE(p)  (GET(p) & ~0x7)
 #define GET_ALLOC(p) (GET(p) & 0x1)
 
@@ -107,8 +105,8 @@ team_t team =
 #define PREV_BLKP(bp)  ((char *)(bp) - GET_SIZE(((char *)(bp) - REQSIZE)))
 
 /* Print debugging information */
-static int verbose = 0;
-#define VERBOSE 0
+extern int verbose;
+#define VERBOSED 0
 
 #if VERBOSE == 1
 # define PRINT_FUNC printf("Starting function: %s\n",__FUNCTION__);
@@ -116,19 +114,18 @@ static int verbose = 0;
 # define PRINT_FUNC
 #endif
 
-static char *heap_start;  /* pointer to the start of out heap*/
+static char *heap_start;  /* pointer to the start of out heap. Note this is only global for debuging purposes*/
 static char *free_startp; /* This points to the beginning of the free list */
-//static char *free_endp = 0; /* This pointes to the end of the free list */
-static int debugCount;
-static int insertCount;
 
 static void *scan_for_free(size_t adjsize);
 static void *new_free_block(size_t words);
 static void place(void *alloc_ptr, size_t size_needed);
 static void *coalesce(void *middle);
+/*
 static void mm_checkheap();
 static void printblock(void *bp);
 static void checkblock(void *bp);
+*/
 static void mm_insert(void *block);
 static void mm_delete(void *block);
 
@@ -137,8 +134,6 @@ static void mm_delete(void *block);
  */
 int mm_init(void)
 {
-    debugCount = 0;
-    insertCount = 0;
     PRINT_FUNC;
 
     heap_start = mem_sbrk(4 * WSIZE); //increment the break pointer by two double words
@@ -147,31 +142,33 @@ int mm_init(void)
     {
         return -1; //No more space for heap;
     }
-    //                      -----------
+                                                                            //                      -----------
     PUT(heap_start, 0);                                                     // padding              | padding |
-    //                      |---------|
-    PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));                     // prolog header        |   PH    |
-    //                      |---------|
-    PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));                   // prolog footer        |   PF    |
-    //                      |---------|
-    PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));                  // epilog header        |   EH    |
-    //                      -----------
+                                                                            //                      |---------|
+    PUT(heap_start + WSIZE, PACK(OVERHEAD, 1));                             // prolog header        |   PH    |
+                                                                            //                      |---------|
+    PUT(heap_start + REQSIZE, PACK(OVERHEAD, 1));                           // prolog footer        |   PF    |
+                                                                            //                      |---------|
+    PUT(heap_start + REQSIZE + WSIZE, PACK(0, 1));                          // epilog header        |   EH    |
+                                                                            //                      -----------
     heap_start += REQSIZE;
 
     free_startp = NULL;
-    //mm_checkheap(verbose);
+    //initilize some starting free space
     free_startp = new_free_block(CHUNKSIZE / WSIZE);
 
-    if (free_startp == NULL)   //initilize some starting free space
+    //no more space available
+    if (free_startp == NULL)   
     {
         return -1;
     }
 
-    if (VERBOSE)
+    if (VERBOSED)
     {
         printf("\n");
         printf("Free list start pointer: %p\n", free_startp);
     }
+
     return 0;
 }
 
@@ -211,13 +208,14 @@ static void *new_free_block(size_t words)
     PUT(HDRP(new_block), PACK(bytes, 0));   //adding header size boundary tag
     PUT(FTRP(new_block), PACK(bytes, 0));   //adding footer sixe boundary tag
 
+    //adjusting the epilog header
+    PUT(HDRP(NEXT_BLKP(new_block)), PACK(0, 1));     
 
-    //TODO: Can we assume that the epilog header is the next block when we are working with an explicit list ?!?!?!
-    PUT(HDRP(NEXT_BLKP(new_block)), PACK(0, 1));     //changing the epilog header
-
+    //insert new free block to our list
     mm_insert(new_block);
 
     //mm_checkheap(verbose);
+
     return coalesce(new_block);
 
 }
@@ -250,24 +248,23 @@ void *mm_malloc(size_t size)
     }
 
     //scan for free space
-    allocspacePtr = scan_for_free(adjsize); /* Same as find_fit in debugging.mp4 */
+    allocspacePtr = scan_for_free(adjsize);
 
-    if (VERBOSE)
+    if (VERBOSED)
     {
         printf("Allocspacept gave: %p\n", allocspacePtr);
     }
 
     if (allocspacePtr != NULL)
     {
-
         //found free space that fits the adjusted size
         place(allocspacePtr, adjsize);
         return allocspacePtr;
     }
 
     extend_size = MAX(adjsize, CHUNKSIZE);
+    
     //we just allocate more space
-
     allocspacePtr = new_free_block(extend_size / WSIZE);
 
     if (allocspacePtr == NULL)
@@ -275,8 +272,11 @@ void *mm_malloc(size_t size)
         return NULL;
     }
 
+    //place block in heap
     place(allocspacePtr, adjsize);
+
     //mm_checkheap(verbose);
+
     return allocspacePtr;
 }
 
@@ -287,7 +287,8 @@ static void place(void *alloc_ptr, size_t size_needed)
 {
     PRINT_FUNC;
 
-    size_t block_size = GET_SIZE(HDRP(alloc_ptr));      //fetch the size of the block given to us
+    //fetch the size of the block given to us
+    size_t block_size = GET_SIZE(HDRP(alloc_ptr));      
 
     size_t block_remainder = block_size - size_needed;
 
@@ -296,11 +297,11 @@ static void place(void *alloc_ptr, size_t size_needed)
 
     if (block_remainder >= (REQSIZE + OVERHEAD))
     {
-
+        //split block in two
         PUT(HDRP(alloc_ptr), PACK(size_needed, 1));
         PUT(FTRP(alloc_ptr), PACK(size_needed, 1));
 
-        //We have space for a new free block, split the block up
+        //We have space for a new free block
         alloc_ptr = NEXT_BLKP(alloc_ptr);
         PUT(HDRP(alloc_ptr), PACK(block_remainder, 0));
         PUT(FTRP(alloc_ptr), PACK(block_remainder, 0));
@@ -310,9 +311,7 @@ static void place(void *alloc_ptr, size_t size_needed)
     }
     else
     {
-        //delete block from our free list
-        mm_delete(alloc_ptr);
-        //activate the allocated bit
+        //use the whole block
         PUT(HDRP(alloc_ptr), PACK(block_size, 1));
         PUT(FTRP(alloc_ptr), PACK(block_size, 1));
     }
@@ -327,16 +326,16 @@ void mm_delete(void *block)
     char *next;
     char *prev;
 
-    next = GET(NEXT_PTR(block));
-    prev = GET(PREV_PTR(block));
+    next = (char *)GET(NEXT_PTR(block));
+    prev = (char *)GET(PREV_PTR(block));
 
     if (next == NULL && prev != NULL)           //Case 0: At the end of a list
     {
-        GET(NEXT_PTR(prev)) = next;
+        GET(NEXT_PTR(prev)) = (size_t)next;
     }
     else if (prev == NULL && next != NULL)      //Case 1: At the start of the list
     {
-        GET(PREV_PTR(next)) = prev;
+        GET(PREV_PTR(next)) = (size_t)prev;
         free_startp = next;
     }
     else if (prev == NULL && next == NULL)      //Case 2: Only block left in list
@@ -345,8 +344,8 @@ void mm_delete(void *block)
     }
     else if (prev != NULL && next != NULL)      //Case 3: Somewhere in the middle of the list
     {
-        GET(NEXT_PTR(prev)) = next;
-        GET(PREV_PTR(next)) = prev;
+        GET(NEXT_PTR(prev)) = (size_t)next;
+        GET(PREV_PTR(next)) = (size_t)prev;
     }
 }
 /*
@@ -356,18 +355,17 @@ void mm_insert(void *block)
 {
 
     PRINT_FUNC;
-    GET(PREV_PTR(block)) = NULL;
+    GET(PREV_PTR(block)) = 0;
 
-    if (free_startp == NULL)            //inserting in an empty list
+    if (free_startp == NULL)                //case 0: Inserting in an empty list
     {
-        GET(NEXT_PTR(block)) = NULL;
+        GET(NEXT_PTR(block)) = 0;
         free_startp = block;
-        insertCount = insertCount + 1;
     }
-    else
+    else                                    //case 1: Inserting in a non empty list
     {
-        GET(PREV_PTR(free_startp)) = block;
-        GET(NEXT_PTR(block)) = free_startp;
+        GET(PREV_PTR(free_startp)) = (size_t)block;
+        GET(NEXT_PTR(block)) = (size_t)free_startp;
         free_startp = block;
     }
 
@@ -378,12 +376,6 @@ void mm_insert(void *block)
 void mm_free(void *block)
 {
     PRINT_FUNC;
-
-    /* Base case: NULL
-    if (!block)
-    {
-        return;
-    }*/
 
     size_t ptrSize = GET_SIZE(HDRP(block));
 
@@ -406,13 +398,13 @@ void *mm_realloc(void *ptr, size_t size)
 {
 
     /*
-        *Finna hvort block við hliðina á sé laus.
-        *Athuga hvort það sem er hægra meginn sé laustþá færa footer og breyta headers size
-        *Ef size er minna þá gera cut á blockina og færa footer og breyta headersize
+     * #1: See if next block is free, then simply expand.
+     * #2: See if new size is less then the current block size, then we cut the block in half.
+     * #3: Need to copy contents to another location
      */
+
     PRINT_FUNC;
 
-    //TODO: Check if it is possible to extend the current memory adress rather than just reserving more space
     void *newptr;
     size_t copySize;
 
@@ -427,7 +419,7 @@ void *mm_realloc(void *ptr, size_t size)
     if (size == 0)
     {
         mm_free(ptr);
-       // return NULL;
+        return NULL;
     }
 
     if (size <= REQSIZE)
@@ -443,9 +435,10 @@ void *mm_realloc(void *ptr, size_t size)
     size_t new_size = (GET_SIZE(HDRP(NEXT_BLKP(ptr)))) + copySize;
     size_t right_remainder = new_size - size;
 
+    // 1. Next block is free, 2. Size of both blocks is big enough, 3. Not the Epilog header
     if(right == 0 && new_size > size && GET_SIZE(HDRP(NEXT_BLKP(ptr))) != 0)
     {
-
+        //remainder of the block is big enough to be a free block
         if(right_remainder >= REQSIZE + OVERHEAD)
         {
             mm_delete(NEXT_BLKP(ptr));
@@ -460,6 +453,7 @@ void *mm_realloc(void *ptr, size_t size)
         }
         else
         {
+            //otherwise we use the whole block
             mm_delete(NEXT_BLKP(ptr));
             PUT(HDRP(ptr), PACK(new_size, 1));
             PUT(FTRP(ptr), PACK(new_size, 1));
@@ -467,7 +461,8 @@ void *mm_realloc(void *ptr, size_t size)
 
         return ptr;
     }
-    
+
+    //find new block
     newptr = mm_malloc(size);
 
     if (newptr == NULL)
@@ -480,6 +475,7 @@ void *mm_realloc(void *ptr, size_t size)
     {
         copySize = size;
     }
+    //copy content to new adress
     memcpy(newptr, ptr, copySize);
     mm_free(ptr);
     return newptr;
@@ -495,16 +491,23 @@ static void *coalesce(void *middle)
     size_t right = GET_ALLOC(HDRP(NEXT_BLKP(middle)));
     size_t size = GET_SIZE(HDRP(middle));
 
-    mm_delete(middle);
 
-    if (left && !right) //right neigbor is a free block
+    if(left && right)                                   //Case 0: No free block
+    {
+        return middle;
+    }
+    
+    //remove the node from our list
+    mm_delete(middle);
+    
+    if (left && !right)                                 //Case 1: Right neigbor is a free block
     {
         mm_delete(NEXT_BLKP(middle));
         size += GET_SIZE(HDRP(NEXT_BLKP(middle)));
         PUT(HDRP(middle), PACK(size, 0));
         PUT(FTRP(middle), PACK(size, 0));
     }
-    else if (!left && right) //left neigbor is a free block
+    else if (!left && right)                            //Case 2: Left neigbor is a free block
     {
         mm_delete(PREV_BLKP(middle));
         size += GET_SIZE(HDRP(PREV_BLKP(middle)));
@@ -512,7 +515,7 @@ static void *coalesce(void *middle)
         PUT(FTRP(middle), PACK(size, 0));
         middle = PREV_BLKP(middle);
     }
-    else if (!left && !right)   //both neigbors are free blocks
+    else if (!left && !right)                           //Case 4: Both neigbors are free blocks
     {
         mm_delete(PREV_BLKP(middle));
         mm_delete(NEXT_BLKP(middle));
@@ -522,20 +525,21 @@ static void *coalesce(void *middle)
         middle = PREV_BLKP(middle);
     }
 
+    //insert the edited node in again
     mm_insert(middle);
 
     return middle;
 }
 /*
-* scan_for_free - Scans the heap for the requierd size.
-*/
+ * scan_for_free - Scans the our explisit list for a block that suits the requierd size.
+ */
 static void *scan_for_free(size_t reqsize)
 {
     PRINT_FUNC;
-    void *curr;
+    char *curr;
 
     //Start on the head of the heap and run down it
-    for (curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
+    for (curr = free_startp; curr != NULL; curr = (char *)GET(NEXT_PTR(curr)))
     {
         //Found space fits the requierd size
         if (reqsize <= GET_SIZE(HDRP(curr)))
@@ -546,47 +550,47 @@ static void *scan_for_free(size_t reqsize)
     return NULL; // need more space
 }
 
-
+/*
+ * mm_checkheap - Our life saving heap checker, can print out the whole heap, print the free list, check Epilog and prolog headers 
+ * for coruption, see if free list next pointers are out of bounds, check for header and footer consistency and check for block
+ * alignment
+ */
+ /*
 void mm_checkheap(int verbose)
 {
     PRINT_FUNC;
 
     char *bp = heap_start;
+
     if (verbose)
     {
-        printf("Heap (%p):\n", heap_start);
-    }
+        if(verbose == 2)
+        {
+            printf("Heap (%p):\n", heap_start);
+        }
 
-    if ((GET_SIZE(HDRP(heap_start)) != DSIZE) || !GET_ALLOC(HDRP(heap_start)))
-    {
-        printf("Bad prologue header\n");
+        if ((GET_SIZE(HDRP(heap_start)) != REQSIZE) || !GET_ALLOC(HDRP(heap_start)))
+        {
+            printf("Bad prologue header\n");
+        }
+        checkblock(heap_start);
     }
-    checkblock(heap_start);
 
     if (verbose == 2)
     {
-        for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
+        for (bp = heap_start; GET_SIZE(HDRP(bp)) > 0; bp = (char *)NEXT_BLKP(bp))
         {
-
-            if (VERBOSE)
-            {
-                printblock(bp);
-            }
+            printblock(bp);
             checkblock(bp);
         }
-    }
 
-    if (verbose)
-    {
         printblock(bp);
-
-
         char *curr;
 
-        for (curr = free_startp; curr != NULL; curr = GET(NEXT_PTR(curr)))
+        for (curr = free_startp; curr != NULL; curr = (char *)GET(NEXT_PTR(curr)))
         {
 
-            if (curr < mem_heap_lo() || curr > mem_heap_hi())
+            if (curr < (char *)mem_heap_lo() || curr > (char *)mem_heap_hi())
             {
                 printf("free list adress (%p) out of bounds \n", curr);
                 break;
@@ -598,15 +602,19 @@ void mm_checkheap(int verbose)
         }
         printf("\n");
 
-
-    }
-    if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
-    {
-        printf("Bad epilogue header\n");
+        if ((GET_SIZE(HDRP(bp)) != 0) || !(GET_ALLOC(HDRP(bp))))
+        {
+            printf("Bad epilogue header\n");
+        }
     }
 
 }
+*/
 
+/*
+ * printblock - helperfunction for checkheap()
+ */
+ /*
 static void printblock(void *bp)
 {
     size_t hsize, halloc, fsize, falloc;
@@ -617,8 +625,8 @@ static void printblock(void *bp)
     halloc = GET_ALLOC(HDRP(bp));
     fsize = GET_SIZE(FTRP(bp));
     falloc = GET_ALLOC(FTRP(bp));
-    next_block = GET(NEXT_PTR(bp));
-    prev_block = GET(PREV_PTR(bp));
+    next_block = (char *)GET(NEXT_PTR(bp));
+    prev_block = (char *)GET(PREV_PTR(bp));
 
     if (hsize == 0)
     {
@@ -631,7 +639,11 @@ static void printblock(void *bp)
            fsize, (falloc ? 'a' : 'f'),
            prev_block, next_block);
 }
-
+*/
+/*
+ * checkblock - helperfunction for checkheap()
+ */
+ /*
 static void checkblock(void *bp)
 {
     if ((size_t)bp % 8)
@@ -643,3 +655,4 @@ static void checkblock(void *bp)
         printf("Error: header does not match footer\n");
     }
 }
+*/
